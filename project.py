@@ -1,4 +1,4 @@
-
+#Jake Tantorski CMPT 120L 
 
 name = input(str("Enter your name: "))
 score = 0
