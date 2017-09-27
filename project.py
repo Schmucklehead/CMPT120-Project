@@ -17,18 +17,55 @@ def intro():
     print(title)
     intro.name = input(str("Enter your name: "))
 intro()
+
+def game():
+    myLoc = beach
+    print(myLoc)
+    
+
+
+    if(myLoc == rocks):
+        direction = input("South or East")
+        if(direction == "South"):
+            myLoc= beach
+            print(beach)
+        elif(direction == "East"):
+            myLoc = cave
+            print(cave)
+
+    if(myLoc == cave):
+        direction = input("West or South")
+        if(direction == "West"):
+            myLoc= rocks
+            print(rocks)
+        elif(direction == "South"):
+            myLoc = forest
+            print(forest)
+
+    if(myLoc == beach):
+        direction = input("North, East or South")
+        if(direction == "North"):
+            myLoc= rocks
+            print(rocks)
+        elif(direction == "South"):
+            myLoc = village
+            print(village)
+        elif(direction == "East"):
+            myLoc = forest
+            print(forest)
             
+            
+game()
+
+            
+    
+        
 
 
 
-input()
-myLocation = rocks
-print(myLocation)
-score = score + 5
-print (name + "'s score is: "  + str(score) + "  -Press Enter")
-print()
 
-input()
+
+'''input()
 myLocation = beach
 print(myLocation)
 score = score + 5
@@ -63,6 +100,6 @@ print(myLocation)
 print("Youve been everywhereit seems like. You think back on the day you've had. You could've never imagined seeing these places and having these things happen to you but you are thankful you get to see another day on the island.")
 score = score + 5
 print (name + "'s score is: "  + str(score) + "  -Press Enter")
-print("Copyright: Jake Tantorski jake.tantorski1@gmail.com")
+print("Copyright: Jake Tantorski jake.tantorski1@gmail.com")'''
 
 
