@@ -23,18 +23,18 @@ intro()
 
 def game(myLoc):
  
-    
+    print(myLoc, "Your score is ", score)
 
     
     if(myLoc == rocks):
         direction = input("South or East: ")
         if(direction == "South"):
             myLoc= beach
-            print(beach)
+            
             game(myLoc)
         elif(direction == "East"):
             myLoc = cave
-            print(cave)
+            
             game(myLoc)
         else:
             print("No")
@@ -45,11 +45,11 @@ def game(myLoc):
         direction = input("West or South: ")
         if(direction == "West"):
             myLoc= rocks
-            print(rocks)
+            
             game(myLoc)
         elif(direction == "South"):
             myLoc = forest
-            print(forest)
+            
             game(myLoc)
         else:
             print("No")
@@ -59,19 +59,19 @@ def game(myLoc):
         direction = input("North, East or South: ")
         if(direction == "North"):
             myLoc= rocks
-            print(rocks)
+            
             game(myLoc)
         elif(direction == "South"):
             myLoc = village
-            print(village)
+            
             game(myLoc)
         elif(direction == "East"):
             myLoc = forest
-            print(forest)
+            
             game(myLoc)
         elif(direction == "West"):
             myLoc = field
-            print(field)
+            
             game(myLoc)
         else:
             print("No")
@@ -82,11 +82,11 @@ def game(myLoc):
         direction = input("East or South: ")
         if(direction == "South"):
             myLoc = village
-            print(village)
+            
             game(myLoc)
         elif(direction == "East"):
             myLoc = beach
-            print(beach)
+            
             game(myLoc)
         else:
             print("No")
@@ -95,11 +95,11 @@ def game(myLoc):
         direction = input("North or West: ")
         if(direction == "North"):
             myLoc= beach
-            print(beach)
+            
             game(myLoc)
         elif(direction == "West"):
             myLoc = field
-            print(field)
+            
             game(myLoc)
         else:
             print("No")
@@ -109,15 +109,15 @@ def game(myLoc):
         direction = input("North or South: ")
         if(direction == "North"):
             myLoc= cave
-            print(cave)
+           
             game(myLoc)
         elif(direction == "South"):
             myLoc = village
-            print(village)
+            
             game(myLoc)
         elif(direction == "West"):
             myLoc = beach
-            print(beach)
+            
             game(myLoc)
         else:
             print("No")
@@ -127,7 +127,15 @@ def game(myLoc):
             
 game(myLoc)
 
-            
+
+def score():
+
+    if(beenThere == False):
+        score = score + 5
+        beenThere == True
+    else:
+        pass
+
     
         
 
