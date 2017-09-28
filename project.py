@@ -1,6 +1,6 @@
 #Jake Tantorski CMPT 120L 
 
-
+global score
 score = 0
 
 
@@ -13,6 +13,14 @@ forest = ("A thick forest appears with many tall luming trees. Aniamls are abdun
 field = ("Now a lush grassy field is in your sights. The grass is untouched except the small rodents that live in it. Flies buzz around your head in the heat")
 village = ("You can make out what seems to be an old village. A fire is almost out and spears are lying around")
 
+
+beenThereRocks = False
+beenThereBeach = False
+beenThereCave = False
+beenThereForest = False
+beenThereField = False
+beenThereVillage = False
+
 myLoc = beach
 
 title = ("Welcome to The Pursuit of Happiness. On this adventure you will enter into many locations. Hopefully you can make it out alive. You start a beach")
@@ -21,73 +29,114 @@ def intro():
     intro.name = input(str("Enter your name: "))
 intro()
 
-def game(myLoc):
+def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage):
  
     print(myLoc, "Your score is ", score)
+    
 
     
     if(myLoc == rocks):
         direction = input("South or East: ")
         if(direction == "South"):
             myLoc= beach
-            
-            game(myLoc)
+            if(beenThereBeach == False):
+                score = score + 5
+                beenThereBeach = True
+            else:
+                pass
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         elif(direction == "East"):
             myLoc = cave
-            
-            game(myLoc)
+            if(beenThereCave == False):
+                score = score + 5
+                beenThereCave = True
+            else:
+                pass
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         else:
             print("No")
-            game(myLoc)
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
             
 
     if(myLoc == cave):
         direction = input("West or South: ")
         if(direction == "West"):
             myLoc= rocks
-            
-            game(myLoc)
+            if(beenThereRocks == False):
+                score = score + 5
+                beenThereRocks = True
+            else:
+                pass
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         elif(direction == "South"):
             myLoc = forest
-            
-            game(myLoc)
+            if(beenThereForest == False):
+                score = score + 5
+                beenThereForest = True
+            else:
+                pass
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         else:
             print("No")
-            game(myLoc)
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
 
     if(myLoc == beach):
         direction = input("North, East or South: ")
         if(direction == "North"):
             myLoc= rocks
-            
-            game(myLoc)
+            if(beenThereRocks == False):
+                score = score + 5
+                beenThereRocks = True
+            else:
+                pass
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         elif(direction == "South"):
             myLoc = village
-            
-            game(myLoc)
+            if(beenThereVillage == False):
+                score = score + 5
+                beenThereVillage = True
+            else:
+                pass
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         elif(direction == "East"):
             myLoc = forest
-            
-            game(myLoc)
+            if(beenThereForest == False):
+                score = score + 5
+                beenThereForest = True
+            else:
+                pass
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         elif(direction == "West"):
             myLoc = field
-            
-            game(myLoc)
+            if(beenThereField == False):
+                score = score + 5
+                beenThereField = True
+            else:
+                pass
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         else:
             print("No")
-            game(myLoc)
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
 
 
     if(myLoc == field):
         direction = input("East or South: ")
         if(direction == "South"):
             myLoc = village
-            
-            game(myLoc)
+            if(beenThereVillage== False):
+                score = score + 5
+                beenThereVillage = True
+            else:
+                pass
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         elif(direction == "East"):
             myLoc = beach
-            
-            game(myLoc)
+            if(beenThereBeach == False):
+                score = score + 5
+                beenThereBeach = True
+            else:
+                pass
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         else:
             print("No")
 
@@ -95,47 +144,62 @@ def game(myLoc):
         direction = input("North or West: ")
         if(direction == "North"):
             myLoc= beach
-            
-            game(myLoc)
+            if(beenThereBeach == False):
+                score = score + 5
+                beenThereBeach = True
+            else:
+                pass
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         elif(direction == "West"):
             myLoc = field
-            
-            game(myLoc)
+            if(beenThereField == False):
+                score = score + 5
+                beenThereField = True
+            else:
+                pass
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         else:
             print("No")
-            game(myLoc)
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage )
 
     if(myLoc == forest):
         direction = input("North or South: ")
         if(direction == "North"):
             myLoc= cave
-           
-            game(myLoc)
+            if(beenThereCave== False):
+                score = score + 5
+                beenThereCave = True
+            else:
+                pass
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         elif(direction == "South"):
             myLoc = village
-            
-            game(myLoc)
+            if(beenThereVillage == False):
+                score = score + 5
+                beenThereVillage = True
+            else:
+                pass
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         elif(direction == "West"):
             myLoc = beach
-            
-            game(myLoc)
+            if(beenThereBeach == False):
+                score = score + 5
+                beenThereBeach = True
+            else:
+                pass
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         else:
             print("No")
-            game(myLoc)
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         
     
             
-game(myLoc)
+game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
 
 
-def score():
 
-    if(beenThere == False):
-        score = score + 5
-        beenThere == True
-    else:
-        pass
 
+    
     
         
 
