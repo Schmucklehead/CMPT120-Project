@@ -179,7 +179,7 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                 
             else:
                 pass
- 
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         elif(direction.lower() == "south"):
             myLoc = village
             if(beenThereVillage == False):
