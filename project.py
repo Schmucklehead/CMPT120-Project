@@ -1,4 +1,4 @@
-#Jake Tantorski CMPT 120L 
+#Jake Tantorski CMPT 120L 9/21/17
 
 global score
 score = 0
@@ -256,6 +256,6 @@ endingScene(score)
 
 
 
-print("Copyright: Jake Tantorski jake.tantorski1@gmail.com")
+print("Copyright: Jake Tantorski jake.tantorski1@gmail.com ")
 
 
