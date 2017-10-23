@@ -1,4 +1,4 @@
-#Jake Tantorski CMPT 120L 
+#Jake Tantorski CMPT 120L 9/21/17
 
 global score
 score = 0
@@ -35,7 +35,7 @@ intro()
 
 def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage):
  
-    print(myLoc, name ,"\'s score is ", score)
+    print(myLoc)
     
 
     
@@ -179,7 +179,7 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                 
             else:
                 pass
- 
+            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
         elif(direction.lower() == "south"):
             myLoc = village
             if(beenThereVillage == False):
@@ -217,33 +217,13 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
     if(myLoc == cave):
          return
         
-    '''direction = input("West or South: ")
-        if(direction == "West"):
-            myLoc= rocks
-            if(beenThereRocks == False):
-                score = score + 5
-                break
-            else:
-                pass
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction == "South"):
-            myLoc = forest
-            if(beenThereForest == False):
-                score = score + 5
-                beenThereForest = True
-            else:
-                pass
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        else:
-            print("No")
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)'''
-        
+   
     
             
 game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
 
 def endingScene(score):
-    print(name,"wins. You have succesfully made it to a safe location to spend the night")
+    print(name + "wins. You have succesfully made it to a safe location to spend the night")
 endingScene(score)
 
 
@@ -256,6 +236,6 @@ endingScene(score)
 
 
 
-print("Copyright: Jake Tantorski jake.tantorski1@gmail.com")
+print("Copyright: Jake Tantorski jake.tantorski1@gmail.com ")
 
 
