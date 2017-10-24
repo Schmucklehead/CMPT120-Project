@@ -34,25 +34,36 @@ def intro():
 intro()
 
 def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage):
- 
-    
-    while True:
+
+ moves = 0    
+
+
+
+ while True:
         if(myLoc == cave):
+            endingScene()
             break
+        elif(moves == 20):
+            print("Too many moves and you got caught in the cold! You lose!")
+            break                 
         else:
-            print(myLoc)
+            
         #Rocks
             if(myLoc == rocks):
                 direction = input("South or East: ")
                 if(direction.lower() == "south"):
+                    moves = moves+1
                     myLoc= beach
+                    print(myLoc)
                     if(beenThereBeach == False):
                         score = score + 5
                         beenThereBeach = True
                     
 
                 elif(direction.lower() == "east"):
+                    moves = moves+1
                     myLoc = cave
+                    print(myLoc)
                     if(beenThereCave == False):
                         score = score + 5
                         beenThereCave = True
@@ -68,28 +79,36 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
 
             
             #Beach
-            if(myLoc == beach):
+            elif(myLoc == beach):
                 direction = input("North, East or South: ")
                 if(direction.lower()== "north"):
+                    moves = moves+1
                     myLoc= rocks
+                    print(myLoc)
                     if(beenThereRocks == False):
                         score = score + 5
                         beenThereRocks = True
                     
                         
                 elif(direction.lower() == "south"):
+                    moves = moves+1
                     myLoc = village
+                    print(myLoc)
                     if(beenThereVillage == False):
                         score = score + 5
                         beenThereVillage = True
                 elif(direction.lower() == "east"):
+                    moves = moves+1
                     myLoc = forest
+                    print(myLoc)
                     if(beenThereForest == False):
                         score = score + 5
                         beenThereForest = True
                     
                 elif(direction.lower() == "west"):
+                    moves = moves+1
                     myLoc = field
+                    print(myLoc)
                     if(beenThereField == False):
                         score = score + 5
                         beenThereField = True
@@ -103,16 +122,20 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                     print("It looks like you cant go that way. Try another direction.")
 
             #Field
-            if(myLoc == field):
+            elif(myLoc == field):
                 direction = input("East or South: ")
                 if(direction.lower() == "south"):
+                    moves = moves+1
                     myLoc = village
+                    print(myLoc)
                     if(beenThereVillage== False):
                         score = score + 5
                         beenThereVillage = True
                     
                 elif(direction.lower()== "east"):
+                    moves = moves+1
                     myLoc = beach
+                    print(myLoc)
                     if(beenThereBeach == False):
                         score = score + 5
                         beenThereBeach = True
@@ -124,16 +147,20 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                 else:
                     print("It looks like you cant go that way. Try another direction.")
             #Village
-            if(myLoc == village):
+            elif(myLoc == village):
                 direction = input("North or West: ")
                 if(direction.lower() == "north"):
+                    moves = moves+1
                     myLoc= beach
+                    print(myLoc)
                     if(beenThereBeach == False):
                         score = score + 5
                         beenThereBeach = True
                     
                 elif(direction.lower() == "west"):
+                    moves = moves+1
                     myLoc = field
+                    print(myLoc)
                     if(beenThereField == False):
                         score = score + 5
                         beenThereField = True
@@ -145,22 +172,28 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                 else:
                     print("It looks like you cant go that way. Try another direction.")
             #Forest
-            if(myLoc == forest):
+            elif(myLoc == forest):
                 direction = input("North, West or South: ")
                 if(direction.lower() == "north"):
+                    moves = moves+1
                     myLoc = cave
+                    print(myLoc)
                     if(beenThereCave == False):
                         score = score + 5
                         beenThereCave = True
                     
                 elif(direction.lower() == "south"):
+                    moves = moves+1
                     myLoc = village
+                    print(myLoc)
                     if(beenThereVillage == False):
                         score = score + 5
                         beenThereVillage = True
                     
                 elif(direction.lower() == "west"):
+                    moves = moves+1
                     myLoc = beach
+                    print(myLoc)
                     if(beenThereBeach == False):
                         score = score + 5
                         beenThereBeach = True
@@ -176,6 +209,8 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
 
         
             
+def endingScene():
+    print(name + "wins. You have succesfully made it to a safe location to spend the night")
        
         
                 
@@ -184,10 +219,7 @@ game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest,
 
 
 
-def endingScene():
-    print(name + "wins. You have succesfully made it to a safe location to spend the night")
-endingScene()
-    
+
     
         
 
