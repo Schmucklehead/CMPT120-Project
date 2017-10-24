@@ -14,6 +14,8 @@ cave = ("Between some bushes a cave is visible. You walk inside and see many dra
 forest = ("A thick forest appears with many tall luming trees. Animals are abdunant and you smell pine.")
 field = ("Now a lush grassy field is in your sights. The grass is untouched except the small rodents that live in it. Flies buzz around your head in the heat.")
 village = ("You can make out what seems to be an old village. A fire is almost out and spears are lying around.")
+hills = ("As the sun glares in your eyes you see that the hills in front of you are rolling everywhere. Grass is covering the hills and an eagle flys above")
+river = ("Water is rushing past you and you gaze upon a giant river. You see a bridge and it seems to be your only way of crossing")
 
 
 beenThereRocks = False
@@ -22,18 +24,19 @@ beenThereCave = False
 beenThereForest = False
 beenThereField = False
 beenThereVillage = False
-
+beenThereRiver = False
+beenThereHills = False
 myLoc = beach
 print("WELCOME TO ISLAND SURVIVAL!")
 name = input(str("Enter your name: "))
 
-title = ("Island Survival is a text based game. Contorls are: East, West, North, South, Help and Quit. On this adventure" ,name,  "will enter into many locations. Hopefully you can make it out alive.")
+title = ("Island Survival is a text based game. Contorls are: East, West, North, South, Help, Points, Map and Quit. On this adventure" ,name,  "will enter into many locations. Hopefully you can make it out alive.")
 def intro():
     print(title)
     
 intro()
 
-def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage):
+def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage, beenThereRiver, beenThereHills):
 
  moves = 0    
 
@@ -67,6 +70,13 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                     if(beenThereCave == False):
                         score = score + 5
                         beenThereCave = True
+                elif(direction.lower() == "west"):
+                    moves = moves+1
+                    myLoc = hills
+                    print(myLoc)
+                    if(beenThereHills == False):
+                        score = score + 5
+                        beenThereHills = True
                         
                     
                 elif(direction.lower() == "help"):
@@ -75,11 +85,15 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                     quit()
                 elif(direction.lower() == "points"):
                      print(name + "'s score is: " + str(score))
+                elif(direction.lower() == "map"):
+                    drawMap()
                 else:
                     print("It looks like you cant go that way. Try another direction.")
                     
 
             
+
+
             #Beach
             elif(myLoc == beach):
                 direction = input("Pick a direction: ")
@@ -127,6 +141,9 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                 else:
                     print("It looks like you cant go that way. Try another direction.")
 
+
+
+
             #Field
             elif(myLoc == field):
                 direction = input("Pick a direction:")
@@ -146,14 +163,30 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                         score = score + 5
                         beenThereBeach = True
 
+                elif(direction.lower() == "north"):
+                    moves = moves+1
+                    myLoc = hills
+                    print(myLoc)
+                    if(beenThereHills == False):
+                        score = score + 5
+                        beenThereHills = True
+
                 elif(direction.lower() == "help"):
                      print("Pick one of the given locations.")
                 elif(direction.lower() == "quit"):
                     quit()
                 elif(direction.lower() == "points"):
                      print(name + "'s score is: " + str(score))
+                elif(direction.lower() == "map"):
+                    drawMap()
                 else:
                     print("It looks like you cant go that way. Try another direction.")
+
+
+
+
+
+
             #Village
             elif(myLoc == village):
                 direction = input("Pick a direction: ")
@@ -172,6 +205,13 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                     if(beenThereField == False):
                         score = score + 5
                         beenThereField = True
+                elif(direction.lower() == "east"):
+                    moves = moves+1
+                    myLoc = river
+                    print(myLoc)
+                    if(beenThereRiver == False):
+                        score = score + 5
+                        beenThereRiver = True
                     
                 elif(direction.lower() == "help"):
                      print("Pick one of the given locations.")
@@ -179,8 +219,14 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                     quit()
                 elif(direction.lower() == "points"):
                      print(name + "'s score is: " + str(score))
+                elif(direction.lower() == "map"):
+                    drawMap()
                 else:
                     print("It looks like you cant go that way. Try another direction.")
+
+
+
+
             #Forest
             elif(myLoc == forest):
                 direction = input("Pick a direction: ")
@@ -194,11 +240,11 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                     
                 elif(direction.lower() == "south"):
                     moves = moves+1
-                    myLoc = village
+                    myLoc = river
                     print(myLoc)
-                    if(beenThereVillage == False):
+                    if(beenThereRiver == False):
                         score = score + 5
-                        beenThereVillage = True
+                        beenThereRiver = True
                     
                 elif(direction.lower() == "west"):
                     moves = moves+1
@@ -215,11 +261,88 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                     quit()
                 elif(direction.lower() == "points"):
                      print(name + "'s score is: " + str(score))
+                elif(direction.lower() == "map"):
+                    drawMap()
                 else:
                     print("It looks like you cant go that way. Try another direction.")
-                    game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
 
-        
+
+
+
+
+            #Hills
+            elif(myLoc == hills):
+                direction = input("Pick a direction: ")
+                if(direction.lower() == "south"):
+                    moves = moves+1
+                    myLoc = field
+                    print(myLoc)
+                    if(beenThereField == False):
+                        score = score + 5
+                        beenThereField = True
+                elif(direction.lower() == "east"):
+                    moves = moves+1
+                    myLoc = rocks
+                    print(myLoc)
+                    if(beenThereRocks == False):
+                        score = score + 5
+                        beenThereRocks = True
+                    
+               
+                    
+                        
+                elif(direction.lower() == "help"):
+                     print("Pick one of the given locations.")
+                elif(direction.lower() == "quit"):
+                    quit()
+                elif(direction.lower() == "points"):
+                     print(name + "'s score is: " + str(score))
+                elif(direction.lower() == "map"):
+                    drawMap()
+                else:
+                    print("It looks like you cant go that way. Try another direction.")
+
+
+
+
+
+
+
+            #river
+            elif(myLoc == river):
+                direction = input("Pick a direction: ")
+                
+                        
+                if(direction.lower() == "north"):
+                    moves = moves+1
+                    myLoc = forest
+                    print(myLoc)
+                    if(beenThereForest== False):
+                        score = score + 5
+                        beenThereForest = True
+                
+                    
+                elif(direction.lower() == "west"):
+                    moves = moves+1
+                    myLoc = village
+                    print(myLoc)
+                    if(beenThereForest == False):
+                        score = score + 5
+                        beenThereForest = True
+                    
+                        
+                elif(direction.lower() == "help"):
+                     print("Pick one of the given locations.")
+                elif(direction.lower() == "quit"):
+                    quit()
+                elif(direction.lower() == "points"):
+                     print(name + "'s score is: " + str(score))
+                elif(direction.lower() == "map"):
+                    drawMap()
+                else:
+                    print("It looks like you cant go that way. Try another direction.")
+
+
             
 def endingScene():
     print(name + " wins. You have succesfully made it to a safe location to spend the night")
@@ -237,7 +360,7 @@ def drawMap():
     
     
                 
-game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
+game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage, beenThereRiver, beenThereHills)
 
 
 
