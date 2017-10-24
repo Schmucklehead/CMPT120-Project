@@ -50,7 +50,7 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
             
         #Rocks
             if(myLoc == rocks):
-                direction = input("South or East: ")
+                direction = input("Pick a direction: ")
                 if(direction.lower() == "south"):
                     moves = moves+1
                     myLoc= beach
@@ -73,6 +73,8 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                      print("Pick one of the given locations.")
                 elif(direction.lower() == "quit"):
                     quit()
+                elif(direction.lower() == "points"):
+                     print(name + "'s score is: " + str(score))
                 else:
                     print("It looks like you cant go that way. Try another direction.")
                     
@@ -80,7 +82,7 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
             
             #Beach
             elif(myLoc == beach):
-                direction = input("North, East or South: ")
+                direction = input("Pick a direction: ")
                 if(direction.lower()== "north"):
                     moves = moves+1
                     myLoc= rocks
@@ -118,12 +120,16 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                      print("Pick one of the given locations.")
                 elif(direction.lower() == "quit"):
                     quit()
+                elif(direction.lower() == "points"):
+                     print(name + "'s score is: " + str(score))
+                elif(direction.lower() == "map"):
+                    drawMap()
                 else:
                     print("It looks like you cant go that way. Try another direction.")
 
             #Field
             elif(myLoc == field):
-                direction = input("East or South: ")
+                direction = input("Pick a direction:")
                 if(direction.lower() == "south"):
                     moves = moves+1
                     myLoc = village
@@ -144,11 +150,13 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                      print("Pick one of the given locations.")
                 elif(direction.lower() == "quit"):
                     quit()
+                elif(direction.lower() == "points"):
+                     print(name + "'s score is: " + str(score))
                 else:
                     print("It looks like you cant go that way. Try another direction.")
             #Village
             elif(myLoc == village):
-                direction = input("North or West: ")
+                direction = input("Pick a direction: ")
                 if(direction.lower() == "north"):
                     moves = moves+1
                     myLoc= beach
@@ -169,11 +177,13 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                      print("Pick one of the given locations.")
                 elif(direction.lower() == "quit"):
                     quit()
+                elif(direction.lower() == "points"):
+                     print(name + "'s score is: " + str(score))
                 else:
                     print("It looks like you cant go that way. Try another direction.")
             #Forest
             elif(myLoc == forest):
-                direction = input("North, West or South: ")
+                direction = input("Pick a direction: ")
                 if(direction.lower() == "north"):
                     moves = moves+1
                     myLoc = cave
@@ -203,6 +213,8 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
                      game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
                 elif(direction.lower() == "quit"):
                     quit()
+                elif(direction.lower() == "points"):
+                     print(name + "'s score is: " + str(score))
                 else:
                     print("It looks like you cant go that way. Try another direction.")
                     game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
@@ -210,9 +222,20 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
         
             
 def endingScene():
-    print(name + "wins. You have succesfully made it to a safe location to spend the night")
-       
-        
+    print(name + " wins. You have succesfully made it to a safe location to spend the night")
+
+def drawMap():
+    print("Hills------ Rocks--------Cave")
+    print("  |           |            | ")
+    print("  |           |            | ")
+    print("  |           |            | ")
+    print("Field------ Beach--------Forest")
+    print("     \        |            | ")
+    print("      \       |            | ")
+    print("       \      |            | ")
+    print("        \---Village-----River")
+    
+    
                 
 game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
 
