@@ -35,198 +35,158 @@ intro()
 
 def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage):
  
-    print(myLoc)
     
-
-    
-    if(myLoc == rocks):
-        direction = input("South or East: ")
-        if(direction.lower() == "south"):
-            myLoc= beach
-            if(beenThereBeach == False):
-                score = score + 5
-                beenThereBeach = True
-            else:
-                pass
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "east"):
-            myLoc = cave
-            if(beenThereCave == False):
-                score = score + 5
-                beenThereCave = True
-                
-            else:
-                pass
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "help"):
-             print("Pick one of the given locations.")
-             game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "quit"):
-            quit()
+    while True:
+        if(myLoc == cave):
+            break
         else:
-            print("It looks like you cant go that way. Try another direction.")
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
+            print(myLoc)
+        #Rocks
+            if(myLoc == rocks):
+                direction = input("South or East: ")
+                if(direction.lower() == "south"):
+                    myLoc= beach
+                    if(beenThereBeach == False):
+                        score = score + 5
+                        beenThereBeach = True
+                    
+
+                elif(direction.lower() == "east"):
+                    myLoc = cave
+                    if(beenThereCave == False):
+                        score = score + 5
+                        beenThereCave = True
+                        
+                    
+                elif(direction.lower() == "help"):
+                     print("Pick one of the given locations.")
+                elif(direction.lower() == "quit"):
+                    quit()
+                else:
+                    print("It looks like you cant go that way. Try another direction.")
+                    
+
             
+            #Beach
+            if(myLoc == beach):
+                direction = input("North, East or South: ")
+                if(direction.lower()== "north"):
+                    myLoc= rocks
+                    if(beenThereRocks == False):
+                        score = score + 5
+                        beenThereRocks = True
+                    
+                        
+                elif(direction.lower() == "south"):
+                    myLoc = village
+                    if(beenThereVillage == False):
+                        score = score + 5
+                        beenThereVillage = True
+                elif(direction.lower() == "east"):
+                    myLoc = forest
+                    if(beenThereForest == False):
+                        score = score + 5
+                        beenThereForest = True
+                    
+                elif(direction.lower() == "west"):
+                    myLoc = field
+                    if(beenThereField == False):
+                        score = score + 5
+                        beenThereField = True
+                    
+                        
+                elif(direction.lower() == "help"):
+                     print("Pick one of the given locations.")
+                elif(direction.lower() == "quit"):
+                    quit()
+                else:
+                    print("It looks like you cant go that way. Try another direction.")
 
-    
+            #Field
+            if(myLoc == field):
+                direction = input("East or South: ")
+                if(direction.lower() == "south"):
+                    myLoc = village
+                    if(beenThereVillage== False):
+                        score = score + 5
+                        beenThereVillage = True
+                    
+                elif(direction.lower()== "east"):
+                    myLoc = beach
+                    if(beenThereBeach == False):
+                        score = score + 5
+                        beenThereBeach = True
 
-    if(myLoc == beach):
-        direction = input("North, East or South: ")
-        if(direction.lower()== "north"):
-            myLoc= rocks
-            if(beenThereRocks == False):
-                score = score + 5
-                beenThereRocks = True
-            else:
-                pass
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "south"):
-            myLoc = village
-            if(beenThereVillage == False):
-                score = score + 5
-                beenThereVillage = True
-            else:
-                pass
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "east"):
-            myLoc = forest
-            if(beenThereForest == False):
-                score = score + 5
-                beenThereForest = True
-            else:
-                pass
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "west"):
-            myLoc = field
-            if(beenThereField == False):
-                score = score + 5
-                beenThereField = True
-            else:
-                pass
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "help"):
-             print("Pick one of the given locations.")
-             game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "quit"):
-            quit()
-        else:
-            print("It looks like you cant go that way. Try another direction.")
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
+                elif(direction.lower() == "help"):
+                     print("Pick one of the given locations.")
+                elif(direction.lower() == "quit"):
+                    quit()
+                else:
+                    print("It looks like you cant go that way. Try another direction.")
+            #Village
+            if(myLoc == village):
+                direction = input("North or West: ")
+                if(direction.lower() == "north"):
+                    myLoc= beach
+                    if(beenThereBeach == False):
+                        score = score + 5
+                        beenThereBeach = True
+                    
+                elif(direction.lower() == "west"):
+                    myLoc = field
+                    if(beenThereField == False):
+                        score = score + 5
+                        beenThereField = True
+                    
+                elif(direction.lower() == "help"):
+                     print("Pick one of the given locations.")
+                elif(direction.lower() == "quit"):
+                    quit()
+                else:
+                    print("It looks like you cant go that way. Try another direction.")
+            #Forest
+            if(myLoc == forest):
+                direction = input("North, West or South: ")
+                if(direction.lower() == "north"):
+                    myLoc = cave
+                    if(beenThereCave == False):
+                        score = score + 5
+                        beenThereCave = True
+                    
+                elif(direction.lower() == "south"):
+                    myLoc = village
+                    if(beenThereVillage == False):
+                        score = score + 5
+                        beenThereVillage = True
+                    
+                elif(direction.lower() == "west"):
+                    myLoc = beach
+                    if(beenThereBeach == False):
+                        score = score + 5
+                        beenThereBeach = True
+                    
+                elif(direction.lower() == "help"):
+                     print("Pick one of the given locations.")
+                     game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
+                elif(direction.lower() == "quit"):
+                    quit()
+                else:
+                    print("It looks like you cant go that way. Try another direction.")
+                    game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
 
-
-    if(myLoc == field):
-        direction = input("East or South: ")
-        if(direction.lower() == "south"):
-            myLoc = village
-            if(beenThereVillage== False):
-                score = score + 5
-                beenThereVillage = True
-            else:
-                pass
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower()== "east"):
-            myLoc = beach
-            if(beenThereBeach == False):
-                score = score + 5
-                beenThereBeach = True
-            else:
-                pass
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "help"):
-             print("Pick one of the given locations.")
-             game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "quit"):
-            quit()
-        else:
-            print("It looks like you cant go that way. Try another direction.")
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-
-    if(myLoc == village):
-        direction = input("North or West: ")
-        if(direction.lower() == "north"):
-            myLoc= beach
-            if(beenThereBeach == False):
-                score = score + 5
-                beenThereBeach = True
         
-            else:
-                pass
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "west"):
-            myLoc = field
-            if(beenThereField == False):
-                score = score + 5
-                beenThereField = True
-            else:
-                pass
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "help"):
-             print("Pick one of the given locations.")
-             game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "quit"):
-            quit()
-        else:
-            print("It looks like you cant go that way. Try another direction.")
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage )
-
-    if(myLoc == forest):
-        direction = input("North, West or South: ")
-        if(direction.lower() == "north"):
-            myLoc = cave
-            if(beenThereCave == False):
-                score = score + 5
-                beenThereCave = True
-                
-            else:
-                pass
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "south"):
-            myLoc = village
-            if(beenThereVillage == False):
-                score = score + 5
-                beenThereVillage = True
-            else:
-                pass
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "west"):
-            myLoc = beach
-            if(beenThereBeach == False):
-                score = score + 5
-                beenThereBeach = True
-            else:
-                pass
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "north"):
-            myLoc = forest
-            if(beenThereForest == False):
-                score = score + 5
-                beenThereForest = True
-                
-            else:
-                pass
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "help"):
-             print("Pick one of the given locations.")
-             game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-        elif(direction.lower() == "quit"):
-            quit()
-        else:
-            print("It looks like you cant go that way. Try another direction.")
-            game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-
-    if(myLoc == cave):
-         return
-        
-   
-    
             
+       
+        
+                
 game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
 
-def endingScene(score):
+
+
+
+def endingScene():
     print(name + "wins. You have succesfully made it to a safe location to spend the night")
-endingScene(score)
-
-
+endingScene()
     
     
         
