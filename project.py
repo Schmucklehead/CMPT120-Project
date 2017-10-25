@@ -18,7 +18,12 @@ global myLoc
 
 loc = [("A beach appears. Waves crash against the sandy beach and palm trees sway in the wind."),
        ("You stumble upon a rocky surface. The is no life to be seen and water is scarce."),
-       ("Between some bushes a cave is visible. You walk inside and see many drawings on the wall and a torch lit in the back."),("A thick forest appears with many tall luming trees. Animals are abdunant and you smell pine."),("Now a lush grassy field is in your sights. The grass is untouched except the small rodents that live in it. Flies buzz around your head in the heat."),("You can make out what seems to be an old village. A fire is almost out and spears are lying around."),("As the sun glares in your eyes you see that the hills in front of you are rolling everywhere. Grass is covering the hills and an eagle flys above"),("Water is rushing past you and you gaze upon a giant river. You see a bridge and it seems to be your only way of crossing")]
+       ("Between some bushes a cave is visible. You walk inside and see many drawings on the wall and a torch lit in the back."),
+       ("A thick forest appears with many tall luming trees. Animals are abdunant and you smell pine."),
+       ("Now a lush grassy field is in your sights. The grass is untouched except the small rodents that live in it. Flies buzz around your head in the heat."),
+       ("You can make out what seems to be an old village. A fire is almost out and spears are lying around."),
+       ("As the sun glares in your eyes you see that the hills in front of you are rolling everywhere. Grass is covering the hills and an eagle flys above"),
+       ("Water is rushing past you and you gaze upon a giant river. You see a bridge and it seems to be your only way of crossing")]
 
 
 
@@ -67,7 +72,7 @@ def game():
             
         #Rocks
             if(myLoc == loc[1]):
-                direction = input("Pick a direction: ")
+                direction = input("Pick a command: ")
                 if(direction.lower() == "south"):
  
                     moveTo(0)
@@ -86,7 +91,7 @@ def game():
                 elif(direction.lower() == "map"):
                     drawMap()
                 else:
-                    print("It looks like you cant go that way. Try another direction.")
+                    print("It looks like that is not a command. Try another command.")
                     
 
             
@@ -94,7 +99,7 @@ def game():
 
             #Beach
             elif(myLoc == loc[0]):
-                direction = input("Pick a direction: ")
+                direction = input("Pick a command: ")
                 if(direction.lower()== "north"):
 
                     moveTo(1)
@@ -116,14 +121,14 @@ def game():
                 elif(direction.lower() == "map"):
                     drawMap()
                 else:
-                    print("It looks like you cant go that way. Try another direction.")
+                    print("It looks like that is not a command. Try another command.")
 
 
 
 
             #Field
             elif(myLoc == loc[4]):
-                direction = input("Pick a direction:")
+                direction = input("Pick a command:")
                 if(direction.lower() == "south"):
 
                     moveTo(5)
@@ -142,7 +147,7 @@ def game():
                 elif(direction.lower() == "map"):
                     drawMap()
                 else:
-                    print("It looks like you cant go that way. Try another direction.")
+                    print("It looks like that is not a command. Try another command.")
 
 
 
@@ -151,7 +156,7 @@ def game():
 
             #Village
             elif(myLoc == loc[5]):
-                direction = input("Pick a direction: ")
+                direction = input("Pick a command: ")
                 if(direction.lower() == "north"):
 
                     moveTo(0)
@@ -170,14 +175,14 @@ def game():
                 elif(direction.lower() == "map"):
                     drawMap()
                 else:
-                    print("It looks like you cant go that way. Try another direction.")
+                    print("It looks like that is not a command. Try another command.")
 
 
 
 
             #Forest
             elif(myLoc == loc[3]):
-                direction = input("Pick a direction: ")
+                direction = input("Pick a command: ")
                 if(direction.lower() == "north"):
 
                     moveTo(2)
@@ -197,7 +202,7 @@ def game():
                 elif(direction.lower() == "map"):
                     drawMap()
                 else:
-                    print("It looks like you cant go that way. Try another direction.")
+                    print("It looks like that is not a command. Try another command.")
 
 
 
@@ -205,7 +210,7 @@ def game():
 
             #Hills
             elif(myLoc == loc[6]):
-                direction = input("Pick a direction: ")
+                direction = input("Pick a command: ")
                 if(direction.lower() == "south"):
 
                     moveTo(4)
@@ -221,7 +226,7 @@ def game():
                 elif(direction.lower() == "map"):
                     drawMap()
                 else:
-                    print("It looks like you cant go that way. Try another direction.")
+                    print("It looks like that is not a command. Try another command.")
 
 
 
@@ -231,7 +236,7 @@ def game():
 
             #river
             elif(myLoc == loc[7]):
-                direction = input("Pick a direction: ")
+                direction = input("Pick a command: ")
                 if(direction.lower() == "north"):
             
                     moveTo(3)
@@ -247,7 +252,7 @@ def game():
                 elif(direction.lower() == "map"):
                     drawMap()
                 else:
-                    print("It looks like you cant go that way. Try another direction.")
+                    print("It looks like that is not a command. Try another command.")
 
 
             
