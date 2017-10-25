@@ -1,21 +1,22 @@
 #Jake Tantorski CMPT 120L 9/21/17
 
-global score
-score = 0
 
 global name
+global score
+global myLoc
 
 
+#0 = beach
+#1 = rocks
+#2 = cave
+#3 = forest
+#4 = field
+#5 = village
+#6 = hills
+#7 = river
 
 
-rocks = ("You stumble upon a rocky surface. The is no life to be seen and water is scarce.")
-beach = ("A beach appears. Waves crash against the sandy beach and palm trees sway in the wind.")
-cave = ("Between some bushes a cave is visible. You walk inside and see many drawings on the wall and a torch lit in the back.")
-forest = ("A thick forest appears with many tall luming trees. Animals are abdunant and you smell pine.")
-field = ("Now a lush grassy field is in your sights. The grass is untouched except the small rodents that live in it. Flies buzz around your head in the heat.")
-village = ("You can make out what seems to be an old village. A fire is almost out and spears are lying around.")
-hills = ("As the sun glares in your eyes you see that the hills in front of you are rolling everywhere. Grass is covering the hills and an eagle flys above")
-river = ("Water is rushing past you and you gaze upon a giant river. You see a bridge and it seems to be your only way of crossing")
+loc = [("A beach appears. Waves crash against the sandy beach and palm trees sway in the wind."),("You stumble upon a rocky surface. The is no life to be seen and water is scarce."),("Between some bushes a cave is visible. You walk inside and see many drawings on the wall and a torch lit in the back."),("A thick forest appears with many tall luming trees. Animals are abdunant and you smell pine."),("Now a lush grassy field is in your sights. The grass is untouched except the small rodents that live in it. Flies buzz around your head in the heat."),("You can make out what seems to be an old village. A fire is almost out and spears are lying around."),("As the sun glares in your eyes you see that the hills in front of you are rolling everywhere. Grass is covering the hills and an eagle flys above"),("Water is rushing past you and you gaze upon a giant river. You see a bridge and it seems to be your only way of crossing")]
 
 
 beenThereRocks = False
@@ -24,26 +25,33 @@ beenThereCave = False
 beenThereForest = False
 beenThereField = False
 beenThereVillage = False
-beenThereRiver = False
 beenThereHills = False
-myLoc = beach
+beenThereRiver = False
+beenThere = [beenThereBeach, beenThereRocks, beenThereCave, beenThereForest, beenThereField, beenThereVillage, beenThereHills,beenThereRiver]
+myLoc = loc[0]
+
 print("WELCOME TO ISLAND SURVIVAL!")
 name = input(str("Enter your name: "))
 
 title = ("Island Survival is a text based game. Contorls are: East, West, North, South, Help, Points, Map and Quit. On this adventure" ,name,  "will enter into many locations. Hopefully you can make it out alive.")
 def intro():
+    
     print(title)
+    
     
 intro()
 
-def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage, beenThereRiver, beenThereHills):
+def game(myLoc):
+ 
 
- moves = 0    
+
+ moves = 0
+ score  = 0
 
 
 
  while True:
-        if(myLoc == cave):
+        if(myLoc == loc[2]):
             endingScene()
             break
         elif(moves == 20):
@@ -52,31 +60,22 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
         else:
             
         #Rocks
-            if(myLoc == rocks):
+            if(myLoc == loc[1]):
                 direction = input("Pick a direction: ")
                 if(direction.lower() == "south"):
                     moves = moves+1
-                    myLoc= beach
-                    print(myLoc)
-                    if(beenThereBeach == False):
-                        score = score + 5
-                        beenThereBeach = True
+                    myLoc= loc[0]
+                    moveTo()
                     
 
                 elif(direction.lower() == "east"):
                     moves = moves+1
-                    myLoc = cave
-                    print(myLoc)
-                    if(beenThereCave == False):
-                        score = score + 5
-                        beenThereCave = True
+                    myLoc = loc[2]
+                    moveTo()
                 elif(direction.lower() == "west"):
                     moves = moves+1
-                    myLoc = hills
-                    print(myLoc)
-                    if(beenThereHills == False):
-                        score = score + 5
-                        beenThereHills = True
+                    myLoc = loc[6]
+                    moveTo()
                         
                     
                 elif(direction.lower() == "help"):
@@ -95,39 +94,28 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
 
 
             #Beach
-            elif(myLoc == beach):
-                direction = input("Pick a direction: ")
+            elif(myLoc == loc[0]):
+                direction = input("Pick a direction for start: ")
                 if(direction.lower()== "north"):
                     moves = moves+1
-                    myLoc= rocks
-                    print(myLoc)
-                    if(beenThereRocks == False):
-                        score = score + 5
-                        beenThereRocks = True
+                    myLoc = loc[1]
+                    moveTo()
+ 
                     
                         
                 elif(direction.lower() == "south"):
                     moves = moves+1
-                    myLoc = village
-                    print(myLoc)
-                    if(beenThereVillage == False):
-                        score = score + 5
-                        beenThereVillage = True
+                    myLoc = loc[5]
+                    moveTo()
                 elif(direction.lower() == "east"):
                     moves = moves+1
-                    myLoc = forest
-                    print(myLoc)
-                    if(beenThereForest == False):
-                        score = score + 5
-                        beenThereForest = True
+                    myLoc = loc[3]
+                    moveTo()
                     
                 elif(direction.lower() == "west"):
                     moves = moves+1
-                    myLoc = field
-                    print(myLoc)
-                    if(beenThereField == False):
-                        score = score + 5
-                        beenThereField = True
+                    myLoc = loc[4]
+                    moveTo()
                     
                         
                 elif(direction.lower() == "help"):
@@ -145,31 +133,23 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
 
 
             #Field
-            elif(myLoc == field):
+            elif(myLoc == loc[4]):
                 direction = input("Pick a direction:")
                 if(direction.lower() == "south"):
                     moves = moves+1
-                    myLoc = village
-                    print(myLoc)
-                    if(beenThereVillage== False):
-                        score = score + 5
-                        beenThereVillage = True
+                    myLoc = loc[5]
+                    moveTo()
                     
                 elif(direction.lower()== "east"):
                     moves = moves+1
-                    myLoc = beach
-                    print(myLoc)
-                    if(beenThereBeach == False):
-                        score = score + 5
-                        beenThereBeach = True
+                    myLoc = loc[0]
+                    
+                    moveTo()
 
                 elif(direction.lower() == "north"):
                     moves = moves+1
-                    myLoc = hills
-                    print(myLoc)
-                    if(beenThereHills == False):
-                        score = score + 5
-                        beenThereHills = True
+                    myLoc = loc[6]
+                    moveTo()
 
                 elif(direction.lower() == "help"):
                      print("Pick one of the given locations.")
@@ -188,30 +168,22 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
 
 
             #Village
-            elif(myLoc == village):
+            elif(myLoc == loc[5]):
                 direction = input("Pick a direction: ")
                 if(direction.lower() == "north"):
                     moves = moves+1
-                    myLoc= beach
-                    print(myLoc)
-                    if(beenThereBeach == False):
-                        score = score + 5
-                        beenThereBeach = True
+                    myLoc= loc[0]
+                    moveTo()
                     
                 elif(direction.lower() == "west"):
                     moves = moves+1
-                    myLoc = field
-                    print(myLoc)
-                    if(beenThereField == False):
-                        score = score + 5
-                        beenThereField = True
+                    myLoc = loc[4]
+                    moveTo()
+                    
                 elif(direction.lower() == "east"):
                     moves = moves+1
-                    myLoc = river
-                    print(myLoc)
-                    if(beenThereRiver == False):
-                        score = score + 5
-                        beenThereRiver = True
+                    myLoc = loc[7]
+                    moveTo()
                     
                 elif(direction.lower() == "help"):
                      print("Pick one of the given locations.")
@@ -228,31 +200,23 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
 
 
             #Forest
-            elif(myLoc == forest):
+            elif(myLoc == loc[3]):
                 direction = input("Pick a direction: ")
                 if(direction.lower() == "north"):
                     moves = moves+1
-                    myLoc = cave
-                    print(myLoc)
-                    if(beenThereCave == False):
-                        score = score + 5
-                        beenThereCave = True
+                    myLoc = loc[2]
+                    moveTo()
                     
                 elif(direction.lower() == "south"):
                     moves = moves+1
-                    myLoc = river
-                    print(myLoc)
-                    if(beenThereRiver == False):
-                        score = score + 5
-                        beenThereRiver = True
+                    myLoc = loc[7]
+                    moveTo()
                     
                 elif(direction.lower() == "west"):
                     moves = moves+1
-                    myLoc = beach
+                    myLoc = loc[0]
                     print(myLoc)
-                    if(beenThereBeach == False):
-                        score = score + 5
-                        beenThereBeach = True
+                    moveTo()
                     
                 elif(direction.lower() == "help"):
                      print("Pick one of the given locations.")
@@ -271,23 +235,17 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
 
 
             #Hills
-            elif(myLoc == hills):
+            elif(myLoc == loc[6]):
                 direction = input("Pick a direction: ")
                 if(direction.lower() == "south"):
                     moves = moves+1
-                    myLoc = field
-                    print(myLoc)
-                    if(beenThereField == False):
-                        score = score + 5
-                        beenThereField = True
+                    myLoc = loc[4]
+                    moveTo()
+                    
                 elif(direction.lower() == "east"):
                     moves = moves+1
                     myLoc = rocks
-                    print(myLoc)
-                    if(beenThereRocks == False):
-                        score = score + 5
-                        beenThereRocks = True
-                    
+                    moveTo()
                
                     
                         
@@ -309,26 +267,20 @@ def game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereFor
 
 
             #river
-            elif(myLoc == river):
+            elif(myLoc == loc[7]):
                 direction = input("Pick a direction: ")
                 
                         
                 if(direction.lower() == "north"):
                     moves = moves+1
-                    myLoc = forest
-                    print(myLoc)
-                    if(beenThereForest== False):
-                        score = score + 5
-                        beenThereForest = True
+                    myLoc = loc[3]
+                    moveTo()
                 
                     
                 elif(direction.lower() == "west"):
                     moves = moves+1
-                    myLoc = village
-                    print(myLoc)
-                    if(beenThereForest == False):
-                        score = score + 5
-                        beenThereForest = True
+                    myLoc = loc[5]
+                    moveTo()
                     
                         
                 elif(direction.lower() == "help"):
@@ -358,9 +310,65 @@ def drawMap():
     print("       \      |            | ")
     print("        \---Village-----River")
     
-    
+def moveTo():
+        global score
+        
+        if(myLoc== loc[1]):
+            print(loc[1])
+            if(beenThere[1] == False):
+                score = score + 5
+                beenThere[1] = True
+
                 
-game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage, beenThereRiver, beenThereHills)
+        elif(myLoc== loc[0]):
+            print(loc[0])
+            if(beenThere[0] == False):
+                score = score + 5
+                beenThere[0] = True
+
+                
+        elif(myLoc== loc[2]):
+            print(loc[2])
+            if(beenThere[2]== False):
+                score = score + 5
+                beenThere[2] = True
+
+                
+        elif(myLoc== loc[3]):
+            print(loc[3])
+            if(beenThere[3] == False):
+                score = score + 5
+                beenThere[3] = True
+
+                
+        elif(myLoc== loc[4]):
+            print(loc[4])
+            if(beenThere[4]== False):
+                score = score + 5
+                beenThere[4] = True
+
+                
+        elif(myLoc== loc[5]):
+            print(loc[5])
+            if(beenThere[5] == False):
+                score = score + 5
+                beenThere[5] = True
+
+                
+        elif(myLoc==loc[6]):
+            print(loc[6])
+            if(beenThere[6] == False):
+                score = score + 5
+                beenThere[6] = True
+
+                
+        elif(myLoc == loc[7]):
+            print(loc[7])
+            if(beenThere[7] == False):
+                score = score + 5
+                beenThere[7] = True
+                
+game(myLoc)
 
 
 
