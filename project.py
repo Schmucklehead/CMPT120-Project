@@ -41,6 +41,7 @@ def intro():
     print()
     print("Island Survival is a text based game. Contorls are: East, West, North, South, Help, Points, Map and Quit. On this adventure" ,name,  "will enter into many locations. Hopefully you can make it out alive.")
     print()
+    print("You have awoken on a sandy shore with a seagull staring you right in the face. It is holding a piece of paper that you quickly grab. You open it and see a map drawn of what you guess is the island. You rub your eyes and look around. You do not remember anything except your name and a few other basic skills. Unsure of what to do you start looking around.")
     print()
     
 intro()
@@ -59,7 +60,7 @@ def game():
         if(myLoc == loc[2]):
             endingScene()
             break
-        elif(moves == 5):
+        elif(moves == 15):
             print("Too many moves and you got caught in the cold! You lose!")
             break                 
         else:
@@ -93,7 +94,7 @@ def game():
 
             #Beach
             elif(myLoc == loc[0]):
-                direction = input("Pick a direction for start: ")
+                direction = input("Pick a direction: ")
                 if(direction.lower()== "north"):
 
                     moveTo(1)
@@ -231,15 +232,11 @@ def game():
             #river
             elif(myLoc == loc[7]):
                 direction = input("Pick a direction: ")
-                
-                        
                 if(direction.lower() == "north"):
-                
-
+            
                     moveTo(3)
                 elif(direction.lower() == "west"):
-                    
-                    
+                     
                     moveTo(5)
                 elif(direction.lower() == "help"):
                      print("Pick one of the given locations.")
