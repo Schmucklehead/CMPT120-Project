@@ -20,7 +20,7 @@ loc = [("A beach appears. Waves crash against the sandy beach and palm trees swa
        ("You stumble upon a rocky surface. The is no life to be seen and water is scarce."),
        ("Between some bushes a cave is visible. You walk inside and see many drawings on the wall and a torch lit in the back."),("A thick forest appears with many tall luming trees. Animals are abdunant and you smell pine."),("Now a lush grassy field is in your sights. The grass is untouched except the small rodents that live in it. Flies buzz around your head in the heat."),("You can make out what seems to be an old village. A fire is almost out and spears are lying around."),("As the sun glares in your eyes you see that the hills in front of you are rolling everywhere. Grass is covering the hills and an eagle flys above"),("Water is rushing past you and you gaze upon a giant river. You see a bridge and it seems to be your only way of crossing")]
 
-print(loc[5])
+
 
 beenThereRocks = False
 beenThereBeach = False
@@ -36,17 +36,19 @@ myLoc = loc[0]
 print("WELCOME TO ISLAND SURVIVAL!")
 name = input(str("Enter your name: "))
 
-title = ("Island Survival is a text based game. Contorls are: East, West, North, South, Help, Points, Map and Quit. On this adventure" ,name,  "will enter into many locations. Hopefully you can make it out alive.")
+
 def intro():
-    
-    print(title)
-    
+    print()
+    print("Island Survival is a text based game. Contorls are: East, West, North, South, Help, Points, Map and Quit. On this adventure" ,name,  "will enter into many locations. Hopefully you can make it out alive.")
+    print()
+    print()
     
 intro()
 
-def game(myLoc):
+def game():
  global score 
  global moves
+ global myLoc
 
  moves = 0
  score  = 0
@@ -57,7 +59,7 @@ def game(myLoc):
         if(myLoc == loc[2]):
             endingScene()
             break
-        elif(moves == 20):
+        elif(moves == 5):
             print("Too many moves and you got caught in the cold! You lose!")
             break                 
         else:
@@ -68,16 +70,12 @@ def game(myLoc):
                 if(direction.lower() == "south"):
  
                     moveTo(0)
-                    
-
                 elif(direction.lower() == "east"):
 
                     moveTo(2)
                 elif(direction.lower() == "west"):
 
                     moveTo(6)
-                        
-                    
                 elif(direction.lower() == "help"):
                      print("Pick one of the given locations.")
                 elif(direction.lower() == "quit"):
@@ -99,21 +97,15 @@ def game(myLoc):
                 if(direction.lower()== "north"):
 
                     moveTo(1)
- 
-                    
-                        
                 elif(direction.lower() == "south"):
 
                     moveTo(5)
                 elif(direction.lower() == "east"):
 
                     moveTo(3)
-                    
                 elif(direction.lower() == "west"):
 
                     moveTo(4)
-                    
-                        
                 elif(direction.lower() == "help"):
                      print("Pick one of the given locations.")
                 elif(direction.lower() == "quit"):
@@ -134,16 +126,12 @@ def game(myLoc):
                 if(direction.lower() == "south"):
 
                     moveTo(5)
-                    
                 elif(direction.lower()== "east"):
 
-                    
                     moveTo(0)
-
                 elif(direction.lower() == "north"):
 
                     moveTo(6)
-
                 elif(direction.lower() == "help"):
                      print("Pick one of the given locations.")
                 elif(direction.lower() == "quit"):
@@ -166,15 +154,12 @@ def game(myLoc):
                 if(direction.lower() == "north"):
 
                     moveTo(0)
-                    
                 elif(direction.lower() == "west"):
 
                     moveTo(4)
-                    
                 elif(direction.lower() == "east"):
 
                     moveTo(7)
-                    
                 elif(direction.lower() == "help"):
                      print("Pick one of the given locations.")
                 elif(direction.lower() == "quit"):
@@ -195,15 +180,12 @@ def game(myLoc):
                 if(direction.lower() == "north"):
 
                     moveTo(2)
-                    
                 elif(direction.lower() == "south"):
 
                     moveTo(7)
-                    
                 elif(direction.lower() == "west"):
 
                     moveTo(0)
-                    
                 elif(direction.lower() == "help"):
                      print("Pick one of the given locations.")
                      game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
@@ -226,13 +208,9 @@ def game(myLoc):
                 if(direction.lower() == "south"):
 
                     moveTo(4)
-                    
                 elif(direction.lower() == "east"):
 
                     moveTo(1)
-               
-                    
-                        
                 elif(direction.lower() == "help"):
                      print("Pick one of the given locations.")
                 elif(direction.lower() == "quit"):
@@ -259,14 +237,10 @@ def game(myLoc):
                 
 
                     moveTo(3)
-                
-                    
                 elif(direction.lower() == "west"):
                     
                     
                     moveTo(5)
-                    
-                        
                 elif(direction.lower() == "help"):
                      print("Pick one of the given locations.")
                 elif(direction.lower() == "quit"):
@@ -297,6 +271,7 @@ def drawMap():
 def moveTo(i):
         global score
         global moves
+        global myLoc
         moves = moves+1
         myLoc = loc[i]
         print(loc[i])
@@ -307,20 +282,8 @@ def moveTo(i):
 
  
                 
-game(myLoc)
+game()
 
-
-
-
-
-    
-        
-
-
-
-
-
-
-print("Copyright: Jake Tantorski jake.tantorski1@gmail.com ")
+print("Copyright: Jake Tantorski jake.tantorski1@marist.edu ")
 
 
