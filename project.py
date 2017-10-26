@@ -50,7 +50,7 @@ def intro():
     print()
     
 intro()
-
+#Game Function
 def game():
  global score 
  global moves
@@ -66,13 +66,13 @@ def game():
             endingScene()
             break
         elif(moves == 15):
-            print("Too many moves and you got caught in the cold! You lose!")
+            print("You took too long and you got caught in the cold! You lose!")
             break                 
         else:
             
         #Rocks
             if(myLoc == loc[1]):
-                direction = input("Pick a command: ")
+                direction = input("Enter a command: ")
                 if(direction.lower() == "south"):
  
                     moveTo(0)
@@ -83,7 +83,7 @@ def game():
 
                     moveTo(6)
                 elif(direction.lower() == "help"):
-                     print("Pick one of the given locations.")
+                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
                 elif(direction.lower() == "quit"):
                     quit()
                 elif(direction.lower() == "points"):
@@ -99,7 +99,7 @@ def game():
 
             #Beach
             elif(myLoc == loc[0]):
-                direction = input("Pick a command: ")
+                direction = input("Enter a command: ")
                 if(direction.lower()== "north"):
 
                     moveTo(1)
@@ -113,7 +113,7 @@ def game():
 
                     moveTo(4)
                 elif(direction.lower() == "help"):
-                     print("Pick one of the given locations.")
+                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
                 elif(direction.lower() == "quit"):
                     quit()
                 elif(direction.lower() == "points"):
@@ -128,7 +128,7 @@ def game():
 
             #Field
             elif(myLoc == loc[4]):
-                direction = input("Pick a command:")
+                direction = input("Enter a command:")
                 if(direction.lower() == "south"):
 
                     moveTo(5)
@@ -139,7 +139,7 @@ def game():
 
                     moveTo(6)
                 elif(direction.lower() == "help"):
-                     print("Pick one of the given locations.")
+                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
                 elif(direction.lower() == "quit"):
                     quit()
                 elif(direction.lower() == "points"):
@@ -156,7 +156,7 @@ def game():
 
             #Village
             elif(myLoc == loc[5]):
-                direction = input("Pick a command: ")
+                direction = input("Enter a command: ")
                 if(direction.lower() == "north"):
 
                     moveTo(0)
@@ -167,7 +167,7 @@ def game():
 
                     moveTo(7)
                 elif(direction.lower() == "help"):
-                     print("Pick one of the given locations.")
+                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
                 elif(direction.lower() == "quit"):
                     quit()
                 elif(direction.lower() == "points"):
@@ -182,7 +182,7 @@ def game():
 
             #Forest
             elif(myLoc == loc[3]):
-                direction = input("Pick a command: ")
+                direction = input("Enter a command: ")
                 if(direction.lower() == "north"):
 
                     moveTo(2)
@@ -193,7 +193,7 @@ def game():
 
                     moveTo(0)
                 elif(direction.lower() == "help"):
-                     print("Pick one of the given locations.")
+                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
                      game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
                 elif(direction.lower() == "quit"):
                     quit()
@@ -210,7 +210,7 @@ def game():
 
             #Hills
             elif(myLoc == loc[6]):
-                direction = input("Pick a command: ")
+                direction = input("Enter a command: ")
                 if(direction.lower() == "south"):
 
                     moveTo(4)
@@ -218,7 +218,7 @@ def game():
 
                     moveTo(1)
                 elif(direction.lower() == "help"):
-                     print("Pick one of the given locations.")
+                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
                 elif(direction.lower() == "quit"):
                     quit()
                 elif(direction.lower() == "points"):
@@ -236,7 +236,7 @@ def game():
 
             #river
             elif(myLoc == loc[7]):
-                direction = input("Pick a command: ")
+                direction = input("Enter a command: ")
                 if(direction.lower() == "north"):
             
                     moveTo(3)
@@ -244,7 +244,7 @@ def game():
                      
                     moveTo(5)
                 elif(direction.lower() == "help"):
-                     print("Pick one of the given locations.")
+                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
                 elif(direction.lower() == "quit"):
                     quit()
                 elif(direction.lower() == "points"):
@@ -255,10 +255,10 @@ def game():
                     print("It looks like that is not a command. Try another command.")
 
 
-            
+#End Scene           
 def endingScene():
     print(name + " wins. You have succesfully made it to a safe location to spend the night")
-
+#Map Of Island
 def drawMap():
     print("Hills------ Rocks--------Cave")
     print("  |           |            | ")
