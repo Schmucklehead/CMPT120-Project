@@ -4,7 +4,7 @@
 global name
 global score
 global myLoc
-
+global shortLoc
 
 #0 = beach
 #1 = rocks
@@ -25,7 +25,14 @@ loc = [("A beach appears. Waves crash against the sandy beach and palm trees swa
        ("As the sun glares in your eyes you see that the hills in front of you are rolling everywhere. Grass is covering the hills and an eagle flys above"),
        ("Water is rushing past you and you gaze upon a giant river. You see a bridge and it seems to be your only way of crossing")]
 
-
+shortLoc = [("You are at the beach.")
+        ,("You are at the rocks.")
+        ,("You are at the cave.")
+        ,("You are at the forest.")
+        ,("You are at the field.")
+        ,("You are at the village.")
+        ,("You are at the hills.")
+        ,("You are at the river.")]
 
 beenThereRocks = False
 beenThereBeach = False
@@ -52,6 +59,10 @@ def intro():
 intro()
 #Game Function
 def game():
+
+
+
+
  global score 
  global moves
  global myLoc
@@ -120,6 +131,8 @@ def game():
                      print(name + "'s score is: " + str(score))
                 elif(direction.lower() == "map"):
                     drawMap()
+                elif(direction.lower() == "look"):
+                    print(myLoc)
                 else:
                     print("It looks like that is not a command. Try another command.")
 
@@ -146,6 +159,8 @@ def game():
                      print(name + "'s score is: " + str(score))
                 elif(direction.lower() == "map"):
                     drawMap()
+                elif(direction.lower() == "look"):
+                    print(myLoc)
                 else:
                     print("It looks like that is not a command. Try another command.")
 
@@ -174,6 +189,8 @@ def game():
                      print(name + "'s score is: " + str(score))
                 elif(direction.lower() == "map"):
                     drawMap()
+                elif(direction.lower() == "look"):
+                    print(myLoc)
                 else:
                     print("It looks like that is not a command. Try another command.")
 
@@ -201,6 +218,8 @@ def game():
                      print(name + "'s score is: " + str(score))
                 elif(direction.lower() == "map"):
                     drawMap()
+                elif(direction.lower() == "look"):
+                    print(myLoc)
                 else:
                     print("It looks like that is not a command. Try another command.")
 
@@ -225,6 +244,8 @@ def game():
                      print(name + "'s score is: " + str(score))
                 elif(direction.lower() == "map"):
                     drawMap()
+                elif(direction.lower() == "look"):
+                    print(myLoc)
                 else:
                     print("It looks like that is not a command. Try another command.")
 
@@ -251,6 +272,8 @@ def game():
                      print(name + "'s score is: " + str(score))
                 elif(direction.lower() == "map"):
                     drawMap()
+                elif(direction.lower() == "look"):
+                    print(myLoc)
                 else:
                     print("It looks like that is not a command. Try another command.")
 
@@ -274,12 +297,20 @@ def moveTo(i):
         global score
         global moves
         global myLoc
+        global shortLoc
         moves = moves+1
         myLoc = loc[i]
-        print(loc[i])
+        short = shortLoc[i]
+        
         if(beenThere[i] == False):
             score = score + 5
             beenThere[i] = True
+            print(myLoc)
+        else:
+            print(short)
+                
+        
+            
 
 
  
