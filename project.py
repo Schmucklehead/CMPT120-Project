@@ -17,6 +17,32 @@ global shortLoc
 #8 = marsh
 #9 = waterfall
 
+beach = 0
+rocks = 1
+cave = 2
+forest = 3
+field = 4
+village = 5
+hills = 6
+river = 7
+marsh = 8
+waterfall = 9
+
+
+world = [  #N           #S          #E         #W
+        [ rocks,       village,     forest,    field  ]#beach
+        [ None,        beach,       cave,     hills   ]#rocks
+        [ None,        forest,      None,      rocks  ]#cave
+        [ cave,        river,       None,      beach  ]#forest
+        [ hills,       village,     beach,     None   ]#field
+        [ beach,       marsh,       river,     field  ]#village
+        [ None,        field,       rocks,     None   ]#hills
+        [ forest,      waterfall,   None,      village]#river
+        [ village,     None,        waterfall, None   ]#marsh
+        [river,        None,        None,      marsh  ]#waterfall
+    
+    
+
 
 loc = [("A beach appears. Waves crash against the sandy beach and palm trees sway in the wind."),
        ("You stumble upon a rocky surface. The is no life to be seen and water is scarce."),
