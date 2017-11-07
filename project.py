@@ -319,7 +319,7 @@ def moveTo(i):
             beenThere[i] = True
             print(myLoc)
         else:
-            print(short)
+            print(short) 
                 
         
             
