@@ -14,6 +14,8 @@ global shortLoc
 #5 = village
 #6 = hills
 #7 = river
+#8 = marsh
+#9 = waterfall
 
 
 loc = [("A beach appears. Waves crash against the sandy beach and palm trees sway in the wind."),
@@ -23,7 +25,9 @@ loc = [("A beach appears. Waves crash against the sandy beach and palm trees swa
        ("Now a lush grassy field is in your sights. The grass is untouched except the small rodents that live in it. Flies buzz around your head in the heat."),
        ("You can make out what seems to be an old village. A fire is almost out and spears are lying around."),
        ("As the sun glares in your eyes you see that the hills in front of you are rolling everywhere. Grass is covering the hills and an eagle flys above"),
-       ("Water is rushing past you and you gaze upon a giant river. You see a bridge and it seems to be your only way of crossing")]
+       ("Water is rushing past you and you gaze upon a giant river. You see a bridge and it seems to be your only way of crossing"),
+       ("You stumble upon a marsh and see ducks flying around and a beaver creating a dam"),
+       ("A beautiful waterfall comes into sight and the water sparys your face.  You stare into the beauty that is water falling from a cliff and listen to it crash onto the rocks below")]
 
 shortLoc = [("You are at the beach.")
         ,("You are at the rocks.")
@@ -32,7 +36,9 @@ shortLoc = [("You are at the beach.")
         ,("You are at the field.")
         ,("You are at the village.")
         ,("You are at the hills.")
-        ,("You are at the river.")]
+        ,("You are at the river.")
+        ,("You are at the marsh.")
+        ,("You are at the waterfall.")]
 
 beenThereRocks = False
 beenThereBeach = False
@@ -42,7 +48,9 @@ beenThereField = False
 beenThereVillage = False
 beenThereHills = False
 beenThereRiver = False
-beenThere = [beenThereBeach, beenThereRocks, beenThereCave, beenThereForest, beenThereField, beenThereVillage, beenThereHills,beenThereRiver]
+beenThereMarsh = False
+beenThereWaterfall = False
+beenThere = [beenThereBeach, beenThereRocks, beenThereCave, beenThereForest, beenThereField, beenThereVillage, beenThereHills,beenThereRiver,beenThereMarsh,beenThereWaterfall]
 myLoc = loc[0]
 
 print("WELCOME TO ISLAND SURVIVAL!")
@@ -292,6 +300,10 @@ def drawMap():
     print("      \       |            | ")
     print("       \      |            | ")
     print("        \---Village-----River")
+    print("              |            | ")
+    print("              |            | ")
+    print("              |            | ")
+    print("            Marsh-----Waterfall")
     
 def moveTo(i):
         global score
