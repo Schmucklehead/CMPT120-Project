@@ -3,8 +3,9 @@
 
 global name
 global score
-global myLoc
+global currLoc
 global shortLoc
+global userAction
 
 #0 = beach
 #1 = rocks
@@ -28,12 +29,13 @@ river = 7
 marsh = 8
 waterfall = 9
 
-directions = [ "north", "south", "east", "west", "quit" ]
+directions = [ "north", "south", "east", "west", "quit","look" ]
 north = 0
 south = 1
 east = 2
 west = 3
 quit = 4
+look = 5 
 
 
 world = [  #N           #S          #E         #W
@@ -104,12 +106,12 @@ def main():
     ending()
 #Game Function
 def game():
-
+    global userAction
  
     currLoc = beach
      
     '''
-        if(myLoc == loc[2]):
+        if(currLoc == cave):
             endingScene()
             break
         elif(moves == 15):
@@ -119,8 +121,12 @@ def game():
     while True:
         printLoc(currLoc)
         userAction = getNextDirection()
-        if userAction == quit: break
-        currLoc = lookUpLoc(currLoc,userAction)
+        if userAction == quit:
+            break
+        elif userAction == look :
+            print(loc[currLoc])
+        else:
+            currLoc = lookUpLoc(currLoc,userAction)
 
 def getNextDirection():
         choice = input("Command: ").strip().lower()
@@ -138,7 +144,10 @@ def printLoc(place):
         print(loc[place])
         beenThere[place] = True
     else:
-        print(shortLoc[place])
+        if(userAction == look):
+            pass
+        else:
+            print(shortLoc[place])
         
         
         
@@ -160,34 +169,8 @@ def drawMap():
     print("              |            | ")
     print("              |            | ")
     print("            Marsh-----Waterfall")
-"""   
-def moveTo(i):
-        global score
-        global moves
-        global myLoc
-        global shortLoc
-        moves = moves+1
-        myLoc = loc[i]
-        short = shortLoc[i]
-        
-        if(beenThere[i] == False):
-            score = score + 5
-            beenThere[i] = True
-            print(myLoc)
-        else:
-            print(short)
-            """
 
-        
-
-
-                
-        
-            
-
-
- 
-                
+                       
 main()
 
 print("Copyright: Jake Tantorski jake.tantorski1@marist.edu ")
