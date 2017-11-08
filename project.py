@@ -28,18 +28,26 @@ river = 7
 marsh = 8
 waterfall = 9
 
+directions = [ "north", "south", "east", "west", "quit" ]
+north = 0
+south = 1
+east = 2
+west = 3
+quit = 4
+
 
 world = [  #N           #S          #E         #W
-        [ rocks,       village,     forest,    field  ]#beach
-        [ None,        beach,       cave,     hills   ]#rocks
-        [ None,        forest,      None,      rocks  ]#cave
-        [ cave,        river,       None,      beach  ]#forest
-        [ hills,       village,     beach,     None   ]#field
-        [ beach,       marsh,       river,     field  ]#village
-        [ None,        field,       rocks,     None   ]#hills
-        [ forest,      waterfall,   None,      village]#river
-        [ village,     None,        waterfall, None   ]#marsh
-        [river,        None,        None,      marsh  ]#waterfall
+         [ rocks,       village,     forest,    field  ]#beach
+        ,[ None,        beach,       cave,     hills   ]#rocks
+        ,[ None,        forest,      None,      rocks  ]#cave
+        ,[ cave,        river,       None,      beach  ]#forest
+        ,[ hills,       village,     beach,     None   ]#field
+        ,[ beach,       marsh,       river,     field  ]#village
+        ,[ None,        field,       rocks,     None   ]#hills
+        ,[ forest,      waterfall,   None,      village]#river
+        ,[ village,     None,        waterfall, None   ]#marsh
+        ,[ river,       None,        None,      marsh  ]#waterfall
+        ]
     
     
 
@@ -77,11 +85,12 @@ beenThereRiver = False
 beenThereMarsh = False
 beenThereWaterfall = False
 beenThere = [beenThereBeach, beenThereRocks, beenThereCave, beenThereForest, beenThereField, beenThereVillage, beenThereHills,beenThereRiver,beenThereMarsh,beenThereWaterfall]
-myLoc = loc[0]
+
 
 print("WELCOME TO ISLAND SURVIVAL!")
 name = input(str("Enter your name: "))
 
+inven = []
 
 def intro():
     print()
@@ -89,229 +98,50 @@ def intro():
     print()
     print("You have awoken on a sandy shore with a seagull staring you right in the face. It is holding a piece of paper that you quickly grab. You open it and see a map drawn of what you guess is the island. You rub your eyes and look around. You do not remember anything except your name and a few other basic skills. Unsure of what to do you start looking around.")
     print()
-    
-intro()
+def main():   
+    intro()
+    game()
+    ending()
 #Game Function
 def game():
 
-
-
-
- global score 
- global moves
- global myLoc
-
- moves = 0
- score  = 0
-
-
-
- while True:
+ 
+    currLoc = beach
+     
+    '''
         if(myLoc == loc[2]):
             endingScene()
             break
         elif(moves == 15):
             print("You took too long and you got caught in the cold! You lose!")
-            break                 
-        else:
-            
-        #Rocks
-            if(myLoc == loc[1]):
-                direction = input("Enter a command: ")
-                if(direction.lower() == "south"):
- 
-                    moveTo(0)
-                elif(direction.lower() == "east"):
+            break
+            '''
+    while True:
+        printLoc(currLoc)
+        userAction = getNextDirection()
+        if userAction == quit: break
+        currLoc = lookUpLoc(currLoc,userAction)
 
-                    moveTo(2)
-                elif(direction.lower() == "west"):
+def getNextDirection():
+        choice = input("Command: ").strip().lower()
+        try:
+            return directions.index(choice)
+        except:
+            print("Thats not a valid command!")
+            return getNextDirection()
+        
+def lookUpLoc(location, directions):
+        return world[location][directions]
 
-                    moveTo(6)
-                elif(direction.lower() == "help"):
-                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
-                elif(direction.lower() == "quit"):
-                    quit()
-                elif(direction.lower() == "points"):
-                     print(name + "'s score is: " + str(score))
-                elif(direction.lower() == "map"):
-                    drawMap()
-                else:
-                    print("It looks like that is not a command. Try another command.")
-                    
-
-            
-
-
-            #Beach
-            elif(myLoc == loc[0]):
-                direction = input("Enter a command: ")
-                if(direction.lower()== "north"):
-
-                    moveTo(1)
-                elif(direction.lower() == "south"):
-
-                    moveTo(5)
-                elif(direction.lower() == "east"):
-
-                    moveTo(3)
-                elif(direction.lower() == "west"):
-
-                    moveTo(4)
-                elif(direction.lower() == "help"):
-                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
-                elif(direction.lower() == "quit"):
-                    quit()
-                elif(direction.lower() == "points"):
-                     print(name + "'s score is: " + str(score))
-                elif(direction.lower() == "map"):
-                    drawMap()
-                elif(direction.lower() == "look"):
-                    print(myLoc)
-                else:
-                    print("It looks like that is not a command. Try another command.")
-
-
-
-
-            #Field
-            elif(myLoc == loc[4]):
-                direction = input("Enter a command:")
-                if(direction.lower() == "south"):
-
-                    moveTo(5)
-                elif(direction.lower()== "east"):
-
-                    moveTo(0)
-                elif(direction.lower() == "north"):
-
-                    moveTo(6)
-                elif(direction.lower() == "help"):
-                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
-                elif(direction.lower() == "quit"):
-                    quit()
-                elif(direction.lower() == "points"):
-                     print(name + "'s score is: " + str(score))
-                elif(direction.lower() == "map"):
-                    drawMap()
-                elif(direction.lower() == "look"):
-                    print(myLoc)
-                else:
-                    print("It looks like that is not a command. Try another command.")
-
-
-
-
-
-
-            #Village
-            elif(myLoc == loc[5]):
-                direction = input("Enter a command: ")
-                if(direction.lower() == "north"):
-
-                    moveTo(0)
-                elif(direction.lower() == "west"):
-
-                    moveTo(4)
-                elif(direction.lower() == "east"):
-
-                    moveTo(7)
-                elif(direction.lower() == "help"):
-                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
-                elif(direction.lower() == "quit"):
-                    quit()
-                elif(direction.lower() == "points"):
-                     print(name + "'s score is: " + str(score))
-                elif(direction.lower() == "map"):
-                    drawMap()
-                elif(direction.lower() == "look"):
-                    print(myLoc)
-                else:
-                    print("It looks like that is not a command. Try another command.")
-
-
-
-
-            #Forest
-            elif(myLoc == loc[3]):
-                direction = input("Enter a command: ")
-                if(direction.lower() == "north"):
-
-                    moveTo(2)
-                elif(direction.lower() == "south"):
-
-                    moveTo(7)
-                elif(direction.lower() == "west"):
-
-                    moveTo(0)
-                elif(direction.lower() == "help"):
-                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
-                     game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-                elif(direction.lower() == "quit"):
-                    quit()
-                elif(direction.lower() == "points"):
-                     print(name + "'s score is: " + str(score))
-                elif(direction.lower() == "map"):
-                    drawMap()
-                elif(direction.lower() == "look"):
-                    print(myLoc)
-                else:
-                    print("It looks like that is not a command. Try another command.")
-
-
-
-
-
-            #Hills
-            elif(myLoc == loc[6]):
-                direction = input("Enter a command: ")
-                if(direction.lower() == "south"):
-
-                    moveTo(4)
-                elif(direction.lower() == "east"):
-
-                    moveTo(1)
-                elif(direction.lower() == "help"):
-                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
-                elif(direction.lower() == "quit"):
-                    quit()
-                elif(direction.lower() == "points"):
-                     print(name + "'s score is: " + str(score))
-                elif(direction.lower() == "map"):
-                    drawMap()
-                elif(direction.lower() == "look"):
-                    print(myLoc)
-                else:
-                    print("It looks like that is not a command. Try another command.")
-
-
-
-
-
-
-
-            #river
-            elif(myLoc == loc[7]):
-                direction = input("Enter a command: ")
-                if(direction.lower() == "north"):
-            
-                    moveTo(3)
-                elif(direction.lower() == "west"):
-                     
-                    moveTo(5)
-                elif(direction.lower() == "help"):
-                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
-                elif(direction.lower() == "quit"):
-                    quit()
-                elif(direction.lower() == "points"):
-                     print(name + "'s score is: " + str(score))
-                elif(direction.lower() == "map"):
-                    drawMap()
-                elif(direction.lower() == "look"):
-                    print(myLoc)
-                else:
-                    print("It looks like that is not a command. Try another command.")
-
-
+def printLoc(place):
+    if(beenThere[place] == False):
+        print(loc[place])
+        beenThere[place] = True
+    else:
+        print(shortLoc[place])
+        
+        
+        
 #End Scene           
 def endingScene():
     print(name + " wins. You have succesfully made it to a safe location to spend the night")
@@ -330,7 +160,7 @@ def drawMap():
     print("              |            | ")
     print("              |            | ")
     print("            Marsh-----Waterfall")
-    
+"""   
 def moveTo(i):
         global score
         global moves
@@ -345,7 +175,12 @@ def moveTo(i):
             beenThere[i] = True
             print(myLoc)
         else:
-            print(short) 
+            print(short)
+            """
+
+        
+
+
                 
         
             
@@ -353,7 +188,7 @@ def moveTo(i):
 
  
                 
-game()
+main()
 
 print("Copyright: Jake Tantorski jake.tantorski1@marist.edu ")
 
