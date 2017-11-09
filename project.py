@@ -30,14 +30,18 @@ river = 7
 marsh = 8
 waterfall = 9
 
-directions = [ "north", "south", "east", "west", "quit","look" ]
+directions = [ "north", "south", "east", "west", "quit","look","map","search","take","help","points"]
 north = 0
 south = 1
 east = 2
 west = 3
 quit = 4
 look = 5 
-
+map = 6
+search = 7
+take = 8
+help = 9
+points = 10
 
 world = [  #N           #S          #E         #W
          [ rocks,       village,     forest,    field  ]#beach
@@ -142,20 +146,39 @@ def game():
     global userAction
  
     currLoc = beach
-     
+    printLoc(currLoc)
     while True:
-        printLoc(currLoc)
+        
         userAction = getNextDirection()
         if userAction == quit:
             break
         
-        elif(currLoc == cave):
+        elif not currLoc == river and "lifevest" in inven:
+            ending = bad
             break
             
         elif userAction == look :
             print(loc[currLoc])
+            
+        elif userAction == map :
+            drawMap()
+
+        elif userAction == search:
+            searchForItem(currLoc)
+
+        elif userAction == take:
+            takeItem(currLoc)
+
+        elif userAction = help:
+            print("Commands are: north, south, east, west, quit, look, map, search, take, help, points")
+            
+        elif userAction == points:
+            print("Score: " + str(score) + ".")
+        
         else:
             currLoc = lookUpLoc(currLoc,userAction)
+            printLoc(currLoc)
+            moves = moves + 1
 
             
 
@@ -170,6 +193,10 @@ def getNextDirection():
         
         
 def lookUpLoc(location, directions):
+    if(world[location][directions] == None:
+       print("There is nothing there.")
+       return currLoc
+    else:
         return world[location][directions]
 
     
@@ -177,6 +204,7 @@ def lookUpLoc(location, directions):
 def printLoc(place):
     if(beenThere[place] == False):
         print(loc[place])
+        score = score + 5
         beenThere[place] = True
     else:
         if(userAction == look):
@@ -221,19 +249,22 @@ def ending():
     print(name + " wins. You have succesfully made it to a safe location to spend the night")
 #Map Of Island
 def drawMap():
-    print("Hills------ Rocks--------Cave")
-    print("  |           |            | ")
-    print("  |           |            | ")
-    print("  |           |            | ")
-    print("Field------ Beach--------Forest")
-    print("     \        |            | ")
-    print("      \       |            | ")
-    print("       \      |            | ")
-    print("        \---Village-----River")
-    print("              |            | ")
-    print("              |            | ")
-    print("              |            | ")
-    print("            Marsh-----Waterfall")
+  if "map" in inven:
+        print("Hills------ Rocks--------Cave")
+        print("  |           |            | ")
+        print("  |           |            | ")
+        print("  |           |            | ")
+        print("Field------ Beach--------Forest")
+        print("     \        |            | ")
+        print("      \       |            | ")
+        print("       \      |            | ")
+        print("        \---Village-----River")
+        print("              |            | ")
+        print("              |            | ")
+        print("              |            | ")
+        print("            Marsh-----Waterfall")
+    else:
+       print("You do not have a map with you.")
 
                        
 main()
