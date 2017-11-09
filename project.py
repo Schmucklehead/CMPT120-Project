@@ -6,6 +6,7 @@ global score
 global currLoc
 global shortLoc
 global userAction
+global moves
 
 #0 = beach
 #1 = rocks
@@ -52,7 +53,7 @@ world = [  #N           #S          #E         #W
         ]
     
     
-
+items = ["lifevest", None , None,"map", None, "spear", None, None,None,None]
 
 loc = [("A beach appears. Waves crash against the sandy beach and palm trees sway in the wind."),
        ("You stumble upon a rocky surface. The is no life to be seen and water is scarce."),
@@ -86,8 +87,40 @@ beenThereHills = False
 beenThereRiver = False
 beenThereMarsh = False
 beenThereWaterfall = False
-beenThere = [beenThereBeach, beenThereRocks, beenThereCave, beenThereForest, beenThereField, beenThereVillage, beenThereHills,beenThereRiver,beenThereMarsh,beenThereWaterfall]
-
+beenThere = [
+              beenThereBeach
+             ,beenThereRocks
+             ,beenThereCave
+             ,beenThereForest
+             ,beenThereField
+             ,beenThereVillage
+             ,beenThereHills
+             ,beenThereRiver
+             ,beenThereMarsh
+             ,beenThereWaterfall
+            ]
+examThereRocks = False
+examThereBeach = False
+examThereCave = False
+examThereForest = False
+examThereField = False
+examThereVillage = False
+examThereHills = False
+examThereRiver = False
+examThereMarsh = False
+examThereWaterfall = False
+examThere = [
+              examThereBeach
+             ,examThereRocks
+             ,examThereCave
+             ,examThereForest
+             ,examThereField
+             ,examThereVillage
+             ,examThereHills
+             ,examThereRiver
+             ,examThereMarsh
+             ,examThereWaterfall
+            ]
 
 print("WELCOME TO ISLAND SURVIVAL!")
 name = input(str("Enter your name: "))
@@ -110,23 +143,21 @@ def game():
  
     currLoc = beach
      
-    '''
-        if(currLoc == cave):
-            endingScene()
-            break
-        elif(moves == 15):
-            print("You took too long and you got caught in the cold! You lose!")
-            break
-            '''
     while True:
         printLoc(currLoc)
         userAction = getNextDirection()
         if userAction == quit:
             break
+        
+        elif(currLoc == cave):
+            break
+            
         elif userAction == look :
             print(loc[currLoc])
         else:
             currLoc = lookUpLoc(currLoc,userAction)
+
+            
 
 def getNextDirection():
         choice = input("Command: ").strip().lower()
@@ -135,9 +166,13 @@ def getNextDirection():
         except:
             print("Thats not a valid command!")
             return getNextDirection()
+
+        
         
 def lookUpLoc(location, directions):
         return world[location][directions]
+
+    
 
 def printLoc(place):
     if(beenThere[place] == False):
@@ -148,11 +183,41 @@ def printLoc(place):
             pass
         else:
             print(shortLoc[place])
+
+            
+
+def searchForItem(place):
+    global itemsLoc
+    global inven
+    global examThere
+    global moves
+    moves = moves + 1
+    examThere[place] = True
+    if items[place] != None:
+        print("Look an item!")  
+    else:
+        print("Nothing here.")
+
+def takeItem(place):
+    global itemsLoc
+    global inven
+    global examThere
+    global moves
+    moves = moves + 1
+    if examThere[place] == False: 
+        print("You need to search for an item first!")
+    else:
+        if items[place] == None:
+            print("I guess there is nothing here.")
+        else:
+            inven.append(items[place]) 
+            print("Congrats, You found a " + items[place]+ ".")
+            items[place] = None 
         
         
         
 #End Scene           
-def endingScene():
+def ending():
     print(name + " wins. You have succesfully made it to a safe location to spend the night")
 #Map Of Island
 def drawMap():
