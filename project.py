@@ -3,10 +3,13 @@
 
 global name
 global score
+score = 0
 global currLoc
 global shortLoc
 global userAction
 global moves
+moves = 0
+global ending
 
 #0 = beach
 #1 = rocks
@@ -66,7 +69,7 @@ loc = [("A beach appears. Waves crash against the sandy beach and palm trees swa
        ("Now a lush grassy field is in your sights. The grass is untouched except the small rodents that live in it. Flies buzz around your head in the heat."),
        ("You can make out what seems to be an old village. A fire is almost out and spears are lying around."),
        ("As the sun glares in your eyes you see that the hills in front of you are rolling everywhere. Grass is covering the hills and an eagle flys above"),
-       ("Water is rushing past you and you gaze upon a giant river. You see a bridge and it seems to be your only way of crossing"),
+       ("Water is rushing past you and you gaze upon a giant river. Swimming through seems to be your only way of crossing"),
        ("You stumble upon a marsh and see ducks flying around and a beaver creating a dam"),
        ("A beautiful waterfall comes into sight and the water sparys your face.  You stare into the beauty that is water falling from a cliff and listen to it crash onto the rocks below")]
 
@@ -140,23 +143,34 @@ def intro():
 def main():   
     intro()
     game()
-    ending()
+    endingScene()
 #Game Function
 def game():
     global userAction
+    global score
+    global moves
+    global ending
  
     currLoc = beach
     printLoc(currLoc)
-    while True:
-        
+    while True:                     
+     if currLoc == river and not "lifevest" in inven:
+         ending = 2
+         break
+     elif moves == 40:
+        ending = 1
+        break
+     elif currLoc == cave and "spear" in inven:
+         ending = 0
+         break
+     elif score == 50 and "map" in inven:
+         ending = 3
+         break
+     
+     else:
         userAction = getNextDirection()
         if userAction == quit:
             break
-        
-        elif not currLoc == river and "lifevest" in inven:
-            ending = bad
-            break
-            
         elif userAction == look :
             print(loc[currLoc])
             
@@ -169,7 +183,7 @@ def game():
         elif userAction == take:
             takeItem(currLoc)
 
-        elif userAction = help:
+        elif userAction == help:
             print("Commands are: north, south, east, west, quit, look, map, search, take, help, points")
             
         elif userAction == points:
@@ -180,8 +194,22 @@ def game():
             printLoc(currLoc)
             moves = moves + 1
 
-            
+def endingScene():
+    global ending
+    if (ending == 0):
+        print(name + " wins. You have succesfully made it to a safe location with a weapon to spend the night")
 
+    elif(ending  == 1):
+        print("You took too long and got caught in the cold of the night. You died. GAME OVER!")
+
+    elif(ending == 2):
+        print("You did not have soemthing to keep you afloat as tried to cross and you drowned. GAME OVER!")
+
+    elif(ending == 3):
+        print("You have been everywhere and you have the map with you. You have seen the island and can survive and navigate!")
+
+    else:
+        print("Thanks for playing!")
 def getNextDirection():
         choice = input("Command: ").strip().lower()
         try:
@@ -193,15 +221,16 @@ def getNextDirection():
         
         
 def lookUpLoc(location, directions):
-    if(world[location][directions] == None:
+    if world[location][directions] == None:
        print("There is nothing there.")
-       return currLoc
+       return location
     else:
         return world[location][directions]
 
     
 
 def printLoc(place):
+    global score
     if(beenThere[place] == False):
         print(loc[place])
         score = score + 5
@@ -244,9 +273,7 @@ def takeItem(place):
         
         
         
-#End Scene           
-def ending():
-    print(name + " wins. You have succesfully made it to a safe location to spend the night")
+
 #Map Of Island
 def drawMap():
   if "map" in inven:
@@ -263,7 +290,7 @@ def drawMap():
         print("              |            | ")
         print("              |            | ")
         print("            Marsh-----Waterfall")
-    else:
+  else:
        print("You do not have a map with you.")
 
                        
