@@ -136,7 +136,7 @@ inven = []
 
 def intro():
     print()
-    print("Island Survival is a text based game. Contorls are: East, West, North, South, Help, Points, Search, Take, Map and Quit. On this adventure" ,name,  "will enter into many locations. Hopefully you can make it out alive.")
+    print("Island Survival is a text based game. Controls are: East, West, North, South, Help, Points, Search, Take, Map and Quit. On this adventure" ,name,  "will enter into many locations. Hopefully you can make it out alive.")
     print()
     print("You have awoken on a sandy shore with a seagull staring you right in the face. You rub your eyes and look around. You do not remember anything except your name and a few other basic skills. Unsure of what to do you start looking around.")
     print()
