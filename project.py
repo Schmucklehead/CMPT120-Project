@@ -60,7 +60,7 @@ world = [  #N           #S          #E         #W
         ]
     
     
-items = ["lifevest", None , None,"map", None, "spear", None, None,None,None]
+items = ["life vest", None , None,"map", None, "spear", None, None,None,None]
 
 loc = [("A beach appears. Waves crash against the sandy beach and palm trees sway in the wind."),
        ("You stumble upon a rocky surface. The is no life to be seen and water is scarce."),
@@ -136,9 +136,9 @@ inven = []
 
 def intro():
     print()
-    print("Island Survival is a text based game. Contorls are: East, West, North, South, Help, Points, Map and Quit. On this adventure" ,name,  "will enter into many locations. Hopefully you can make it out alive.")
+    print("Island Survival is a text based game. Contorls are: East, West, North, South, Help, Points, Search, Take, Map and Quit. On this adventure" ,name,  "will enter into many locations. Hopefully you can make it out alive.")
     print()
-    print("You have awoken on a sandy shore with a seagull staring you right in the face. It is holding a piece of paper that you quickly grab. You open it and see a map drawn of what you guess is the island. You rub your eyes and look around. You do not remember anything except your name and a few other basic skills. Unsure of what to do you start looking around.")
+    print("You have awoken on a sandy shore with a seagull staring you right in the face. You rub your eyes and look around. You do not remember anything except your name and a few other basic skills. Unsure of what to do you start looking around.")
     print()
 def main():   
     intro()
@@ -154,7 +154,7 @@ def game():
     currLoc = beach
     printLoc(currLoc)
     while True:                     
-     if currLoc == river and not "lifevest" in inven:
+     if currLoc == river and not "life vest" in inven:
          ending = 2
          break
      elif moves == 40:
@@ -184,7 +184,7 @@ def game():
             takeItem(currLoc)
 
         elif userAction == help:
-            print("Commands are: north, south, east, west, quit, look, map, search, take, help, points")
+            print("Commands are: -North-, -South-, -East- , -West-. -Quit- to end the game, -Look- to look around, -Map- to access map, -Search- to search for items, -Take- to take the items after searching, -Points- to show " + name + "'s score.")
             
         elif userAction == points:
             print("Score: " + str(score) + ".")
@@ -203,7 +203,7 @@ def endingScene():
         print("You took too long and got caught in the cold of the night. You died. GAME OVER!")
 
     elif(ending == 2):
-        print("You did not have soemthing to keep you afloat as tried to cross and you drowned. GAME OVER!")
+        print("You did not have something to keep you afloat as tried to cross and you drowned. GAME OVER!")
 
     elif(ending == 3):
         print("You have been everywhere and you have the map with you. You have seen the island and can survive and navigate!")
@@ -222,7 +222,7 @@ def getNextDirection():
         
 def lookUpLoc(location, directions):
     if world[location][directions] == None:
-       print("There is nothing there.")
+       print("There is nothing in that direction.")
        return location
     else:
         return world[location][directions]
