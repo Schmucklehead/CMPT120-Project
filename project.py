@@ -170,18 +170,17 @@ def game():
     global score
     global moves
     global ending
- 
+    ending = 99
     currLoc = beach
     printLoc(currLoc)
     while True:                     
-     if currLoc == river and not "lifevest" in inven:
+     if(currLoc == river and not "lifevest" in inven):
          ending = 2
          break
      elif moves == 40:
         ending = 1
         break
-     elif currLoc == cave and "spear" in inven:
-         ending = 0
+     elif(ending == 0):
          break
      elif score == 50 and "map" in inven:
          ending = 3
@@ -327,13 +326,25 @@ def dropItem(place):
     else:
         print("That item is not in your inventory")
 
-def useItem():
+def useItem(place):
     global itemsLoc
     global inven
-    global examThere
+    global currLoc
     global moves
     global cmdItem
-    moves = moves +1 
+    global ending
+    moves = moves +1
+    if(cmdItem == " "):
+        print("You need to use a specific item.")
+    else:
+        if cmdItem in inven:
+            
+            if place == cave and "spear" in inven:
+                ending = 0
+            else:
+                print("You cant use that item here")
+        else:
+            print("You do not have that item.")
     
                 
         
