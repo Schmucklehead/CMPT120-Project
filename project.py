@@ -66,7 +66,7 @@ world = [  #N           #S          #E         #W
         ]
     
     
-items = ["lifevest", None , None,"map", None, "spear", None, None,"compass",None,"stick","water"]
+items = ["lifevest", None , None,"map", None, "spear", None, None,"axe",None,"wood","water"]
 
 loc = [("A beach appears. Waves crash against the sandy beach and palm trees sway in the wind."),
        ("You stumble upon a rocky surface. The is no life to be seen and water is scarce."),
@@ -326,6 +326,15 @@ def dropItem(place):
             items[place] = cmdItem
     else:
         print("That item is not in your inventory")
+
+def useItem():
+    global itemsLoc
+    global inven
+    global examThere
+    global moves
+    global cmdItem
+    moves = moves +1 
+    
                 
         
         
