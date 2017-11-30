@@ -335,7 +335,7 @@ def useItem(place):
     global ending
     moves = moves +1
     if(cmdItem == " "):
-        print("You need to use a specific item.")
+        print("You need to use a specific item." )
     else:
         if cmdItem in inven:
             
