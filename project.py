@@ -32,8 +32,10 @@ hills = 6
 river = 7
 marsh = 8
 waterfall = 9
+dam = 10
+pond = 11
 
-directions = [ "north", "south", "east", "west", "quit","look","map","search","take","help","points"]
+directions = [ "north", "south", "east", "west", "quit","look","map","search","take","help","points","drop","use"]
 north = 0
 south = 1
 east = 2
@@ -45,6 +47,8 @@ search = 7
 take = 8
 help = 9
 points = 10
+drop = 11
+use = 12
 
 world = [  #N           #S          #E         #W
          [ rocks,       village,     forest,    field  ]#beach
@@ -55,12 +59,14 @@ world = [  #N           #S          #E         #W
         ,[ beach,       marsh,       river,     field  ]#village
         ,[ None,        field,       rocks,     None   ]#hills
         ,[ forest,      waterfall,   None,      village]#river
-        ,[ village,     None,        waterfall, None   ]#marsh
-        ,[ river,       None,        None,      marsh  ]#waterfall
+        ,[ village,     dam,         waterfall, None   ]#marsh
+        ,[ river,       pond,        None,      marsh  ]#waterfall
+        ,[ marsh,       None,        pond,      None  ]#dam
+        ,[ waterfall,   None,        None,      dam  ]#pond
         ]
     
     
-items = ["life vest", None , None,"map", None, "spear", None, None,None,None]
+items = ["lifevest", None , None,"map", None, "spear", None, None,"compass",None,"stick","water"]
 
 loc = [("A beach appears. Waves crash against the sandy beach and palm trees sway in the wind."),
        ("You stumble upon a rocky surface. The is no life to be seen and water is scarce."),
@@ -71,7 +77,10 @@ loc = [("A beach appears. Waves crash against the sandy beach and palm trees swa
        ("As the sun glares in your eyes you see that the hills in front of you are rolling everywhere. Grass is covering the hills and an eagle flys above"),
        ("Water is rushing past you and you gaze upon a giant river. Swimming through seems to be your only way of crossing"),
        ("You stumble upon a marsh and see ducks flying around and a beaver creating a dam"),
-       ("A beautiful waterfall comes into sight and the water sparys your face.  You stare into the beauty that is water falling from a cliff and listen to it crash onto the rocks below")]
+       ("A beautiful waterfall comes into sight and the water sparys your face.  You stare into the beauty that is water falling from a cliff and listen to it crash onto the rocks below"),
+       ("A dam constructed by beavers is blocking the water from flowing freely."),
+       ("There appears to be a crystal clear pond with a pair of fish swimming side by side")
+       ]
 
 shortLoc = [("You are at the beach.")
         ,("You are at the rocks.")
@@ -82,7 +91,10 @@ shortLoc = [("You are at the beach.")
         ,("You are at the hills.")
         ,("You are at the river.")
         ,("You are at the marsh.")
-        ,("You are at the waterfall.")]
+        ,("You are at the waterfall.")
+        ,("You are at the dam.")
+        ,("You are at the pond")
+            ]
 
 beenThereRocks = False
 beenThereBeach = False
@@ -94,6 +106,8 @@ beenThereHills = False
 beenThereRiver = False
 beenThereMarsh = False
 beenThereWaterfall = False
+beenThereDam = False
+beenTherePond = False
 beenThere = [
               beenThereBeach
              ,beenThereRocks
@@ -105,6 +119,8 @@ beenThere = [
              ,beenThereRiver
              ,beenThereMarsh
              ,beenThereWaterfall
+             ,beenThereDam
+             ,beenTherePond
             ]
 examThereRocks = False
 examThereBeach = False
@@ -116,6 +132,8 @@ examThereHills = False
 examThereRiver = False
 examThereMarsh = False
 examThereWaterfall = False
+examThereDam = False
+examTherePond = False
 examThere = [
               examThereBeach
              ,examThereRocks
@@ -127,6 +145,8 @@ examThere = [
              ,examThereRiver
              ,examThereMarsh
              ,examThereWaterfall
+             ,examThereDam
+             ,examTherePond
             ]
 
 print("WELCOME TO ISLAND SURVIVAL!")
@@ -154,7 +174,7 @@ def game():
     currLoc = beach
     printLoc(currLoc)
     while True:                     
-     if currLoc == river and not "life vest" in inven:
+     if currLoc == river and not "lifevest" in inven:
          ending = 2
          break
      elif moves == 40:
@@ -182,9 +202,15 @@ def game():
 
         elif userAction == take:
             takeItem(currLoc)
+            
+        elif userAction == drop:
+            dropItem(currLoc)
+            
+        elif userAction == use:
+            useItem(currLoc)
 
         elif userAction == help:
-            print("Commands are: -North-, -South-, -East- , -West-. -Quit- to end the game, -Look- to look around, -Map- to access map, -Search- to search for items, -Take- to take the items after searching, -Points- to show " + name + "'s score.")
+            print("Commands are: -North-, -South-, -East- , -West-. -Quit- to end the game, -Look- to look around, -Map- to access map, -Search- to search for items, -Take- to take the items after searching, -Drop-, -Use-, -Points- to show " + name + "'s score.")
             
         elif userAction == points:
             print("Score: " + str(score) + ".")
@@ -211,9 +237,16 @@ def endingScene():
     else:
         print("Thanks for playing!")
 def getNextDirection():
-        choice = input("Command: ").strip().lower()
+        global cmdItem
+        choice = input("Command: ").split(" ")
+        cmd = str(choice[0].lower())
         try:
-            return directions.index(choice)
+            cmdItem = str(choice[1].lower())
+        except:
+             cmdItem = " "
+             pass
+        try:
+            return directions.index(cmd)
         except:
             print("Thats not a valid command!")
             return getNextDirection()
@@ -248,10 +281,11 @@ def searchForItem(place):
     global inven
     global examThere
     global moves
+    global cmdItem
     moves = moves + 1
     examThere[place] = True
     if items[place] != None:
-        print("Look an item!")  
+        print("Look a(n) " + items[place])  
     else:
         print("Nothing here.")
 
@@ -260,6 +294,7 @@ def takeItem(place):
     global inven
     global examThere
     global moves
+    global cmdItem
     moves = moves + 1
     if examThere[place] == False: 
         print("You need to search for an item first!")
@@ -267,9 +302,31 @@ def takeItem(place):
         if items[place] == None:
             print("I guess there is nothing here.")
         else:
-            inven.append(items[place]) 
-            print("Congrats, You found a " + items[place]+ ".")
-            items[place] = None 
+            if(cmdItem == " "):
+                print("You need to take a specific item.")
+            elif(cmdItem == items[place]): #Seeing item is there to take
+                inven.append(items[place]) 
+                print("Congrats, You found a " + items[place]+ ".")
+                items[place] = None
+            else:
+                print("That item is not here")
+
+def dropItem(place):
+    global inven
+    global moves
+    moves = moves + 1
+    if(cmdItem == " "):
+        print("You need to drop a specific item.")
+    elif cmdItem in inven:
+        if(items[place]  != None):
+            print("There is already an item at this location")
+        else:
+            inven.remove(cmdItem) 
+            print("You dropped a " + cmdItem+ ".")
+            items[place] = cmdItem
+    else:
+        print("That item is not in your inventory")
+                
         
         
         
@@ -290,6 +347,10 @@ def drawMap():
         print("              |            | ")
         print("              |            | ")
         print("            Marsh-----Waterfall")
+        print("              |            | ")
+        print("              |            | ")
+        print("              |            | ")
+        print("            Dam----------Pond")
   else:
        print("You do not have a map with you.")
 
