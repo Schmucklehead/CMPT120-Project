@@ -3,8 +3,13 @@
 
 global name
 global score
-global myLoc
-
+score = 0
+global currLoc
+global shortLoc
+global userAction
+global moves
+moves = 0
+global ending
 
 #0 = beach
 #1 = rocks
@@ -14,7 +19,48 @@ global myLoc
 #5 = village
 #6 = hills
 #7 = river
+#8 = marsh
+#9 = waterfall
 
+beach = 0
+rocks = 1
+cave = 2
+forest = 3
+field = 4
+village = 5
+hills = 6
+river = 7
+marsh = 8
+waterfall = 9
+
+directions = [ "north", "south", "east", "west", "quit","look","map","search","take","help","points"]
+north = 0
+south = 1
+east = 2
+west = 3
+quit = 4
+look = 5 
+map = 6
+search = 7
+take = 8
+help = 9
+points = 10
+
+world = [  #N           #S          #E         #W
+         [ rocks,       village,     forest,    field  ]#beach
+        ,[ None,        beach,       cave,     hills   ]#rocks
+        ,[ None,        forest,      None,      rocks  ]#cave
+        ,[ cave,        river,       None,      beach  ]#forest
+        ,[ hills,       village,     beach,     None   ]#field
+        ,[ beach,       marsh,       river,     field  ]#village
+        ,[ None,        field,       rocks,     None   ]#hills
+        ,[ forest,      waterfall,   None,      village]#river
+        ,[ village,     None,        waterfall, None   ]#marsh
+        ,[ river,       None,        None,      marsh  ]#waterfall
+        ]
+    
+    
+items = ["lifevest", None , None,"map", None, "spear", None, None,None,None]
 
 loc = [("A beach appears. Waves crash against the sandy beach and palm trees sway in the wind."),
        ("You stumble upon a rocky surface. The is no life to be seen and water is scarce."),
@@ -23,9 +69,20 @@ loc = [("A beach appears. Waves crash against the sandy beach and palm trees swa
        ("Now a lush grassy field is in your sights. The grass is untouched except the small rodents that live in it. Flies buzz around your head in the heat."),
        ("You can make out what seems to be an old village. A fire is almost out and spears are lying around."),
        ("As the sun glares in your eyes you see that the hills in front of you are rolling everywhere. Grass is covering the hills and an eagle flys above"),
-       ("Water is rushing past you and you gaze upon a giant river. You see a bridge and it seems to be your only way of crossing")]
+       ("Water is rushing past you and you gaze upon a giant river. Swimming through seems to be your only way of crossing"),
+       ("You stumble upon a marsh and see ducks flying around and a beaver creating a dam"),
+       ("A beautiful waterfall comes into sight and the water sparys your face.  You stare into the beauty that is water falling from a cliff and listen to it crash onto the rocks below")]
 
-
+shortLoc = [("You are at the beach.")
+        ,("You are at the rocks.")
+        ,("You are at the cave.")
+        ,("You are at the forest.")
+        ,("You are at the field.")
+        ,("You are at the village.")
+        ,("You are at the hills.")
+        ,("You are at the river.")
+        ,("You are at the marsh.")
+        ,("You are at the waterfall.")]
 
 beenThereRocks = False
 beenThereBeach = False
@@ -35,12 +92,47 @@ beenThereField = False
 beenThereVillage = False
 beenThereHills = False
 beenThereRiver = False
-beenThere = [beenThereBeach, beenThereRocks, beenThereCave, beenThereForest, beenThereField, beenThereVillage, beenThereHills,beenThereRiver]
-myLoc = loc[0]
+beenThereMarsh = False
+beenThereWaterfall = False
+beenThere = [
+              beenThereBeach
+             ,beenThereRocks
+             ,beenThereCave
+             ,beenThereForest
+             ,beenThereField
+             ,beenThereVillage
+             ,beenThereHills
+             ,beenThereRiver
+             ,beenThereMarsh
+             ,beenThereWaterfall
+            ]
+examThereRocks = False
+examThereBeach = False
+examThereCave = False
+examThereForest = False
+examThereField = False
+examThereVillage = False
+examThereHills = False
+examThereRiver = False
+examThereMarsh = False
+examThereWaterfall = False
+examThere = [
+              examThereBeach
+             ,examThereRocks
+             ,examThereCave
+             ,examThereForest
+             ,examThereField
+             ,examThereVillage
+             ,examThereHills
+             ,examThereRiver
+             ,examThereMarsh
+             ,examThereWaterfall
+            ]
 
 print("WELCOME TO ISLAND SURVIVAL!")
 name = input(str("Enter your name: "))
 
+inven = []
 
 def intro():
     print()
@@ -48,243 +140,161 @@ def intro():
     print()
     print("You have awoken on a sandy shore with a seagull staring you right in the face. It is holding a piece of paper that you quickly grab. You open it and see a map drawn of what you guess is the island. You rub your eyes and look around. You do not remember anything except your name and a few other basic skills. Unsure of what to do you start looking around.")
     print()
-    
-intro()
+def main():   
+    intro()
+    game()
+    endingScene()
 #Game Function
 def game():
- global score 
- global moves
- global myLoc
-
- moves = 0
- score  = 0
-
-
-
- while True:
-        if(myLoc == loc[2]):
-            endingScene()
-            break
-        elif(moves == 15):
-            print("You took too long and you got caught in the cold! You lose!")
-            break                 
-        else:
-            
-        #Rocks
-            if(myLoc == loc[1]):
-                direction = input("Enter a command: ")
-                if(direction.lower() == "south"):
+    global userAction
+    global score
+    global moves
+    global ending
  
-                    moveTo(0)
-                elif(direction.lower() == "east"):
-
-                    moveTo(2)
-                elif(direction.lower() == "west"):
-
-                    moveTo(6)
-                elif(direction.lower() == "help"):
-                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
-                elif(direction.lower() == "quit"):
-                    quit()
-                elif(direction.lower() == "points"):
-                     print(name + "'s score is: " + str(score))
-                elif(direction.lower() == "map"):
-                    drawMap()
-                else:
-                    print("It looks like that is not a command. Try another command.")
-                    
-
+    currLoc = beach
+    printLoc(currLoc)
+    while True:                     
+     if currLoc == river and not "lifevest" in inven:
+         ending = 2
+         break
+     elif moves == 40:
+        ending = 1
+        break
+     elif currLoc == cave and "spear" in inven:
+         ending = 0
+         break
+     elif score == 50 and "map" in inven:
+         ending = 3
+         break
+     
+     else:
+        userAction = getNextDirection()
+        if userAction == quit:
+            break
+        elif userAction == look :
+            print(loc[currLoc])
             
+        elif userAction == map :
+            drawMap()
 
+        elif userAction == search:
+            searchForItem(currLoc)
 
-            #Beach
-            elif(myLoc == loc[0]):
-                direction = input("Enter a command: ")
-                if(direction.lower()== "north"):
+        elif userAction == take:
+            takeItem(currLoc)
 
-                    moveTo(1)
-                elif(direction.lower() == "south"):
-
-                    moveTo(5)
-                elif(direction.lower() == "east"):
-
-                    moveTo(3)
-                elif(direction.lower() == "west"):
-
-                    moveTo(4)
-                elif(direction.lower() == "help"):
-                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
-                elif(direction.lower() == "quit"):
-                    quit()
-                elif(direction.lower() == "points"):
-                     print(name + "'s score is: " + str(score))
-                elif(direction.lower() == "map"):
-                    drawMap()
-                else:
-                    print("It looks like that is not a command. Try another command.")
-
-
-
-
-            #Field
-            elif(myLoc == loc[4]):
-                direction = input("Enter a command:")
-                if(direction.lower() == "south"):
-
-                    moveTo(5)
-                elif(direction.lower()== "east"):
-
-                    moveTo(0)
-                elif(direction.lower() == "north"):
-
-                    moveTo(6)
-                elif(direction.lower() == "help"):
-                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
-                elif(direction.lower() == "quit"):
-                    quit()
-                elif(direction.lower() == "points"):
-                     print(name + "'s score is: " + str(score))
-                elif(direction.lower() == "map"):
-                    drawMap()
-                else:
-                    print("It looks like that is not a command. Try another command.")
-
-
-
-
-
-
-            #Village
-            elif(myLoc == loc[5]):
-                direction = input("Enter a command: ")
-                if(direction.lower() == "north"):
-
-                    moveTo(0)
-                elif(direction.lower() == "west"):
-
-                    moveTo(4)
-                elif(direction.lower() == "east"):
-
-                    moveTo(7)
-                elif(direction.lower() == "help"):
-                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
-                elif(direction.lower() == "quit"):
-                    quit()
-                elif(direction.lower() == "points"):
-                     print(name + "'s score is: " + str(score))
-                elif(direction.lower() == "map"):
-                    drawMap()
-                else:
-                    print("It looks like that is not a command. Try another command.")
-
-
-
-
-            #Forest
-            elif(myLoc == loc[3]):
-                direction = input("Enter a command: ")
-                if(direction.lower() == "north"):
-
-                    moveTo(2)
-                elif(direction.lower() == "south"):
-
-                    moveTo(7)
-                elif(direction.lower() == "west"):
-
-                    moveTo(0)
-                elif(direction.lower() == "help"):
-                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
-                     game(myLoc,score,beenThereRocks, beenThereBeach, beenThereCave, beenThereForest, beenThereField, beenThereVillage)
-                elif(direction.lower() == "quit"):
-                    quit()
-                elif(direction.lower() == "points"):
-                     print(name + "'s score is: " + str(score))
-                elif(direction.lower() == "map"):
-                    drawMap()
-                else:
-                    print("It looks like that is not a command. Try another command.")
-
-
-
-
-
-            #Hills
-            elif(myLoc == loc[6]):
-                direction = input("Enter a command: ")
-                if(direction.lower() == "south"):
-
-                    moveTo(4)
-                elif(direction.lower() == "east"):
-
-                    moveTo(1)
-                elif(direction.lower() == "help"):
-                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
-                elif(direction.lower() == "quit"):
-                    quit()
-                elif(direction.lower() == "points"):
-                     print(name + "'s score is: " + str(score))
-                elif(direction.lower() == "map"):
-                    drawMap()
-                else:
-                    print("It looks like that is not a command. Try another command.")
-
-
-
-
-
-
-
-            #river
-            elif(myLoc == loc[7]):
-                direction = input("Enter a command: ")
-                if(direction.lower() == "north"):
+        elif userAction == help:
+            print("Commands are: north, south, east, west, quit, look, map, search, take, help, points")
             
-                    moveTo(3)
-                elif(direction.lower() == "west"):
-                     
-                    moveTo(5)
-                elif(direction.lower() == "help"):
-                     print("Contorls are: East, West, North, South, Help, Points, Map and Quit.")
-                elif(direction.lower() == "quit"):
-                    quit()
-                elif(direction.lower() == "points"):
-                     print(name + "'s score is: " + str(score))
-                elif(direction.lower() == "map"):
-                    drawMap()
-                else:
-                    print("It looks like that is not a command. Try another command.")
+        elif userAction == points:
+            print("Score: " + str(score) + ".")
+        
+        else:
+            currLoc = lookUpLoc(currLoc,userAction)
+            printLoc(currLoc)
+            moves = moves + 1
 
-
-#End Scene           
 def endingScene():
-    print(name + " wins. You have succesfully made it to a safe location to spend the night")
+    global ending
+    if (ending == 0):
+        print(name + " wins. You have succesfully made it to a safe location with a weapon to spend the night")
+
+    elif(ending  == 1):
+        print("You took too long and got caught in the cold of the night. You died. GAME OVER!")
+
+    elif(ending == 2):
+        print("You did not have soemthing to keep you afloat as tried to cross and you drowned. GAME OVER!")
+
+    elif(ending == 3):
+        print("You have been everywhere and you have the map with you. You have seen the island and can survive and navigate!")
+
+    else:
+        print("Thanks for playing!")
+def getNextDirection():
+        choice = input("Command: ").strip().lower()
+        try:
+            return directions.index(choice)
+        except:
+            print("Thats not a valid command!")
+            return getNextDirection()
+
+        
+        
+def lookUpLoc(location, directions):
+    if world[location][directions] == None:
+       print("There is nothing there.")
+       return location
+    else:
+        return world[location][directions]
+
+    
+
+def printLoc(place):
+    global score
+    if(beenThere[place] == False):
+        print(loc[place])
+        score = score + 5
+        beenThere[place] = True
+    else:
+        if(userAction == look):
+            pass
+        else:
+            print(shortLoc[place])
+
+            
+
+def searchForItem(place):
+    global itemsLoc
+    global inven
+    global examThere
+    global moves
+    moves = moves + 1
+    examThere[place] = True
+    if items[place] != None:
+        print("Look an item!")  
+    else:
+        print("Nothing here.")
+
+def takeItem(place):
+    global itemsLoc
+    global inven
+    global examThere
+    global moves
+    moves = moves + 1
+    if examThere[place] == False: 
+        print("You need to search for an item first!")
+    else:
+        if items[place] == None:
+            print("I guess there is nothing here.")
+        else:
+            inven.append(items[place]) 
+            print("Congrats, You found a " + items[place]+ ".")
+            items[place] = None 
+        
+        
+        
+
 #Map Of Island
 def drawMap():
-    print("Hills------ Rocks--------Cave")
-    print("  |           |            | ")
-    print("  |           |            | ")
-    print("  |           |            | ")
-    print("Field------ Beach--------Forest")
-    print("     \        |            | ")
-    print("      \       |            | ")
-    print("       \      |            | ")
-    print("        \---Village-----River")
-    
-def moveTo(i):
-        global score
-        global moves
-        global myLoc
-        moves = moves+1
-        myLoc = loc[i]
-        print(loc[i])
-        if(beenThere[i] == False):
-            score = score + 5
-            beenThere[i] = True
+  if "map" in inven:
+        print("Hills------ Rocks--------Cave")
+        print("  |           |            | ")
+        print("  |           |            | ")
+        print("  |           |            | ")
+        print("Field------ Beach--------Forest")
+        print("     \        |            | ")
+        print("      \       |            | ")
+        print("       \      |            | ")
+        print("        \---Village-----River")
+        print("              |            | ")
+        print("              |            | ")
+        print("              |            | ")
+        print("            Marsh-----Waterfall")
+  else:
+       print("You do not have a map with you.")
 
-
- 
-                
-game()
+                       
+main()
 
 print("Copyright: Jake Tantorski jake.tantorski1@marist.edu ")
 
