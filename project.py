@@ -262,15 +262,15 @@ def lookUpLoc(location, directions):
 
 def printLoc(place):
     
-    if(locales.beenThere == False):
-        print(locales.loc)
+    if(locales[place].beenThere == False):
+        print(locales[place].loc)
         userPlayer.score = userPlayer.score + 5
-        locales.beenThere = True
+        locales[place].beenThere = True
     else:
         if(userAction == look):
             pass
         else:
-            print(locales.shortLoc)
+            print(locales[place].shortLoc)
 
             
 
@@ -278,9 +278,9 @@ def searchForItem(place):
     global itemsLoc
     global cmdItem
     userPlayer.moves = userPlayer.moves + 1
-    locales.examThere[place] = True
-    if locales.items[place] != None:
-        print("Look a(n) " + locales.items[place])  
+    locales[place].examThere = True
+    if locales[place].items != None:
+        print("Look a(n) " + locales[place].items)  
     else:
         print("Nothing here.")
 
@@ -288,18 +288,18 @@ def takeItem(place):
     global itemsLoc
     global cmdItem
     userPlayer.moves = userPlayer.moves + 1
-    if locales.examThere[place] == False: #make sure you search first
+    if locales[place].examThere == False: #make sure you search first
         print("You need to search for an item first!")
     else:
-        if locales.items[place] == None:
+        if locales[place].items == None:
             print("I guess there is nothing here.")
         else:
             if(cmdItem == " "):
                 print("You need to take a specific item.")
-            elif(cmdItem == locales.items[place]): #Seeing item is there to take
-                userPlayer.inven.append(locales.items[place]) 
-                print("Congrats, You found a " + locales.items[place]+ ".")
-                locales.items[place] = None
+            elif(cmdItem == locales[place].items): #Seeing item is there to take
+                userPlayer.inven.append(locales[place].items) 
+                print("Congrats, You found a " + locales[place].items + ".")
+                locales[place].items = None
             else:
                 print("That item is not here")
 
@@ -308,12 +308,12 @@ def dropItem(place):
     if(cmdItem == " "):#make sure you put what you want to drop
         print("You need to drop a specific item.")
     elif cmdItem in userPlayer.inven:
-        if(locales.items[place]  != None):
+        if(locales[place].items  != None):
             print("There is already an item at this location")
         else:
             userPlayer.inven.remove(cmdItem) 
             print("You dropped a " + cmdItem+ ".")
-            locales.items[place] = cmdItem
+            locales[place].items = cmdItem
     else:
         print("That item is not in your inventory")
 
