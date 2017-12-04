@@ -1,4 +1,4 @@
-#Jake Tantorski CMPT 120L 9/21/17
+#Jake Tantorski CMPT 120L 12/4/17
 
 from player import *
 from gameLocale import *
@@ -8,16 +8,6 @@ from gameLocale import *
 global userAction
 global ending
 
-#0 = beach
-#1 = rocks
-#2 = cave
-#3 = forest
-#4 = field
-#5 = village
-#6 = hills
-#7 = river
-#8 = marsh
-#9 = waterfall
 
 beach = 0
 rocks = 1
@@ -93,40 +83,39 @@ examTherePond = False
 
 #The Player Class
 userPlayer = Player(0,0,[],"name", beach)
-
-locales = [ GameLocale( "beach", "A beach appears. Waves crash against the sandy beach and"
+#BEACH
+locales = [  GameLocale( "beach", "A beach appears. Waves crash against the sandy beach and"
                            " palm trees sway in the wind.", "You are at the beach.", beenThereBeach, examThereBeach, "lifevest")
-
+#ROCKS
 ,GameLocale("rocks", "You stumble upon a rocky surface. The is no life"
                            " to be seen and water is scarce.", "You are at the rocks.",beenThereRocks, examThereRocks, None)
-                           
+#CAVE                          
 ,GameLocale("cave", "Between some bushes a cave is visible. You walk inside and see many "
                           "drawings on the wall and a torch lit in the back.", "You are at the cave.", beenThereCave, examThereCave, None)
-
+#FOREST
 ,GameLocale("forest", "A thick forest appears with many tall luming trees. "
                             "Animals are abdunant and you smell pine.", "You are at the forest.", beenThereForest, examThereForest, "map")
-
+#FIELD
 ,GameLocale("field", "Now a lush grassy field is in your sights. The grass is untouched except the small rodents "
                            "that live in it. Flies buzz around your head in the heat.", "You are at the field.", beenThereField, examThereField, None)
-
+#VILLAGE
 ,GameLocale("village", "You can make out what seems to be an old village."
                              "A fire is almost out and spears are lying around.", "You are at the village.", beenThereVillage, examThereVillage, "spear")
-
+#HILLS
 ,GameLocale("hills", "As the sun glares in your eyes you see that the hills in front of you are rolling everywhere."
                            "Grass is covering the hills and an eagle flys above.", "You are at the hills.", beenThereHills, examThereHills, None)
-
+#RIVER
 ,GameLocale("river", "Water is rushing past you and you gaze upon a giant river."
                            "Swimming through seems to be your only way of crossing", "You are at the river.", beenThereRiver, examThereRiver, None)
-
+#MARSH
 ,GameLocale("marsh", "You stumble upon a marsh and see ducks flying "
                            "around and a beaver creating a dam", "You are at the marsh.", beenThereMarsh, examThereMarsh, "axe")
-
+#WATERFALL
 ,GameLocale("waterfall", "A beautiful waterfall comes into sight and the water sparys your face.  You stare into the beauty that is water falling "
                                "from a cliff and listen to it crash onto the rocks below", "You are at the waterfall.", beenThereWaterfall, examThereWaterfall, None)
-
-,GameLocale("dam", "A beautiful waterfall comes into sight and the water sparys your face.  You stare into the beauty that is water falling "
-                               "from a cliff and listen to it crash onto the rocks below", "You are at the dam.", beenThereDam, examThereDam, "wood")
-
+#DAM
+,GameLocale("dam", "A group of beavers is visible and they are constructing a dam. The dam is blocking the water from running freely", "You are at the dam.", beenThereDam, examThereDam, "wood")
+#POND
 ,GameLocale("pond", "There appears to be a crystal clear pond with a "
                                "pair of fish swimming side by side", "You are at the pond.", beenTherePond, examTherePond, "water")
 ]
@@ -149,11 +138,20 @@ def intro():
           "anything except your name:" + userPlayer.name + " and a few other basic skills."
           "Unsure of what to do you start looking around.")
     print()
-def main():   
+
+
+
+
+def main():
     intro()
     game()
     endingScene()
 #Game Function
+
+
+
+
+    
 def game():
     global userAction
     global score
@@ -218,6 +216,9 @@ def game():
             printLoc(userPlayer.currLoc)
             userPlayer.moves = userPlayer.moves + 1
 
+
+            
+
 def endingScene():
     global ending
     if (ending == 0):
@@ -234,6 +235,12 @@ def endingScene():
 
     else:
         print("Thanks for playing!")
+
+
+
+
+
+        
 def getNextDirection():
         global cmdItem
         choice = input("Command: ").split(" ")
@@ -250,7 +257,7 @@ def getNextDirection():
             return getNextDirection()
 
         
-        
+#Movement        
 def lookUpLoc(location, directions):
     if world[location][directions] == None:
        print("There is nothing in that direction.")
@@ -259,7 +266,7 @@ def lookUpLoc(location, directions):
         return world[location][directions]
 
     
-
+#PRINTLOC
 def printLoc(place):
     
     if(locales[place].beenThere == False):
@@ -273,7 +280,7 @@ def printLoc(place):
             print(locales[place].shortLoc)
 
             
-
+#SEARCH FUNCTION
 def searchForItem(place):
     global itemsLoc
     global cmdItem
@@ -284,6 +291,8 @@ def searchForItem(place):
     else:
         print("Nothing here.")
 
+        
+#TAKE FUNCTION
 def takeItem(place):
     global itemsLoc
     global cmdItem
@@ -298,11 +307,12 @@ def takeItem(place):
                 print("You need to take a specific item.")
             elif(cmdItem == locales[place].items): #Seeing item is there to take
                 userPlayer.inven.append(locales[place].items) 
-                print("Congrats, You found a " + locales[place].items + ".")
+                print("Congrats, You took a " + locales[place].items + ".")
                 locales[place].items = None
             else:
                 print("That item is not here")
 
+#DROP FUNCTION
 def dropItem(place):
     userPlayer.moves = userPlayer.moves + 1
     if(cmdItem == " "):#make sure you put what you want to drop
@@ -317,6 +327,8 @@ def dropItem(place):
     else:
         print("That item is not in your inventory")
 
+
+#USE FUNCTION
 def useItem(place):
     global itemsLoc
     global cmdItem
