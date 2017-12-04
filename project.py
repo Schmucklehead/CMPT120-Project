@@ -171,11 +171,11 @@ def game():
     global moves
     global ending
     ending = 99
+    useRiver = 1
     currLoc = beach
     printLoc(currLoc)
     while True:                     
-     if(currLoc == river and not "lifevest" in inven):
-         ending = 2
+     if(ending == 2):
          break
      elif moves == 40:
         ending = 1
@@ -185,6 +185,17 @@ def game():
      elif score == 50 and "map" in inven:
          ending = 3
          break
+     elif( useRiver == 1 and currLoc == river):
+         print("You fall into the river and dont remember how to swim. You have to be quick. What do you do?")
+         userAction = getNextDirection()
+         if(userAction == use and cmdItem == "lifevest" and  "lifevest" in inven):
+             print("That was a smart move to use the lifevest. You now know that you need it in order to cross the river.")
+             useRiver = 0
+         else:
+            ending = 2
+            break
+         
+     
      
      else:
         userAction = getNextDirection()
@@ -295,7 +306,7 @@ def takeItem(place):
     global moves
     global cmdItem
     moves = moves + 1
-    if examThere[place] == False: 
+    if examThere[place] == False: #make sure you search first
         print("You need to search for an item first!")
     else:
         if items[place] == None:
@@ -314,7 +325,7 @@ def dropItem(place):
     global inven
     global moves
     moves = moves + 1
-    if(cmdItem == " "):
+    if(cmdItem == " "):#make sure you put what you want to drop
         print("You need to drop a specific item.")
     elif cmdItem in inven:
         if(items[place]  != None):
@@ -334,13 +345,14 @@ def useItem(place):
     global cmdItem
     global ending
     moves = moves +1
-    if(cmdItem == " "):
+    if(cmdItem == " "): # if they dont say what item
         print("You need to use a specific item." )
     else:
-        if cmdItem in inven:
+        if cmdItem in inven: #make sure they have it
             
             if place == cave and "spear" in inven:
                 ending = 0
+            
             else:
                 print("You cant use that item here")
         else:
