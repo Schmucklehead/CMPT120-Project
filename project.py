@@ -1,9 +1,10 @@
 #Jake Tantorski CMPT 120L 9/21/17
 
 from player import *
+from gameLocale import *
 
 
-global shortLoc
+
 global userAction
 global ending
 
@@ -57,40 +58,12 @@ world = [  #N           #S          #E         #W
         ,[ forest,      waterfall,   None,      village]#river
         ,[ village,     dam,         waterfall, None   ]#marsh
         ,[ river,       pond,        None,      marsh  ]#waterfall
-        ,[ marsh,       None,        pond,      None  ]#dam
-        ,[ waterfall,   None,        None,      dam  ]#pond
+        ,[ marsh,       None,        pond,      None   ]#dam
+        ,[ waterfall,   None,        None,      dam    ]#pond
         ]
     
     
-items = ["lifevest", None , None,"map", None, "spear", None, None,"axe",None,"wood","water"]
 
-loc = [("A beach appears. Waves crash against the sandy beach and palm trees sway in the wind."),
-       ("You stumble upon a rocky surface. The is no life to be seen and water is scarce."),
-       ("Between some bushes a cave is visible. You walk inside and see many drawings on the wall and a torch lit in the back."),
-       ("A thick forest appears with many tall luming trees. Animals are abdunant and you smell pine."),
-       ("Now a lush grassy field is in your sights. The grass is untouched except the small rodents that live in it. Flies buzz around your head in the heat."),
-       ("You can make out what seems to be an old village. A fire is almost out and spears are lying around."),
-       ("As the sun glares in your eyes you see that the hills in front of you are rolling everywhere. Grass is covering the hills and an eagle flys above"),
-       ("Water is rushing past you and you gaze upon a giant river. Swimming through seems to be your only way of crossing"),
-       ("You stumble upon a marsh and see ducks flying around and a beaver creating a dam"),
-       ("A beautiful waterfall comes into sight and the water sparys your face.  You stare into the beauty that is water falling from a cliff and listen to it crash onto the rocks below"),
-       ("A dam constructed by beavers is blocking the water from flowing freely."),
-       ("There appears to be a crystal clear pond with a pair of fish swimming side by side")
-       ]
-
-shortLoc = [("You are at the beach.")
-        ,("You are at the rocks.")
-        ,("You are at the cave.")
-        ,("You are at the forest.")
-        ,("You are at the field.")
-        ,("You are at the village.")
-        ,("You are at the hills.")
-        ,("You are at the river.")
-        ,("You are at the marsh.")
-        ,("You are at the waterfall.")
-        ,("You are at the dam.")
-        ,("You are at the pond")
-            ]
 
 beenThereRocks = False
 beenThereBeach = False
@@ -104,20 +77,7 @@ beenThereMarsh = False
 beenThereWaterfall = False
 beenThereDam = False
 beenTherePond = False
-beenThere = [
-              beenThereBeach
-             ,beenThereRocks
-             ,beenThereCave
-             ,beenThereForest
-             ,beenThereField
-             ,beenThereVillage
-             ,beenThereHills
-             ,beenThereRiver
-             ,beenThereMarsh
-             ,beenThereWaterfall
-             ,beenThereDam
-             ,beenTherePond
-            ]
+
 examThereRocks = False
 examThereBeach = False
 examThereCave = False
@@ -130,22 +90,47 @@ examThereMarsh = False
 examThereWaterfall = False
 examThereDam = False
 examTherePond = False
-examThere = [
-              examThereBeach
-             ,examThereRocks
-             ,examThereCave
-             ,examThereForest
-             ,examThereField
-             ,examThereVillage
-             ,examThereHills
-             ,examThereRiver
-             ,examThereMarsh
-             ,examThereWaterfall
-             ,examThereDam
-             ,examTherePond
-            ]
+
 #The Player Class
 userPlayer = Player(0,0,[],"name", beach)
+
+locales = [ GameLocale( "beach", "A beach appears. Waves crash against the sandy beach and"
+                           " palm trees sway in the wind.", "You are at the beach.", beenThereBeach, examThereBeach, "lifevest")
+
+,GameLocale("rocks", "You stumble upon a rocky surface. The is no life"
+                           " to be seen and water is scarce.", "You are at the rocks.",beenThereRocks, examThereRocks, None)
+                           
+,GameLocale("cave", "Between some bushes a cave is visible. You walk inside and see many "
+                          "drawings on the wall and a torch lit in the back.", "You are at the cave.", beenThereCave, examThereCave, None)
+
+,GameLocale("forest", "A thick forest appears with many tall luming trees. "
+                            "Animals are abdunant and you smell pine.", "You are at the forest.", beenThereForest, examThereForest, "map")
+
+,GameLocale("field", "Now a lush grassy field is in your sights. The grass is untouched except the small rodents "
+                           "that live in it. Flies buzz around your head in the heat.", "You are at the field.", beenThereField, examThereField, None)
+
+,GameLocale("village", "You can make out what seems to be an old village."
+                             "A fire is almost out and spears are lying around.", "You are at the village.", beenThereVillage, examThereVillage, "spear")
+
+,GameLocale("hills", "As the sun glares in your eyes you see that the hills in front of you are rolling everywhere."
+                           "Grass is covering the hills and an eagle flys above.", "You are at the hills.", beenThereHills, examThereHills, None)
+
+,GameLocale("river", "Water is rushing past you and you gaze upon a giant river."
+                           "Swimming through seems to be your only way of crossing", "You are at the river.", beenThereRiver, examThereRiver, None)
+
+,GameLocale("marsh", "You stumble upon a marsh and see ducks flying "
+                           "around and a beaver creating a dam", "You are at the marsh.", beenThereMarsh, examThereMarsh, "axe")
+
+,GameLocale("waterfall", "A beautiful waterfall comes into sight and the water sparys your face.  You stare into the beauty that is water falling "
+                               "from a cliff and listen to it crash onto the rocks below", "You are at the waterfall.", beenThereWaterfall, examThereWaterfall, None)
+
+,GameLocale("dam", "A beautiful waterfall comes into sight and the water sparys your face.  You stare into the beauty that is water falling "
+                               "from a cliff and listen to it crash onto the rocks below", "You are at the dam.", beenThereDam, examThereDam, "wood")
+
+,GameLocale("pond", "There appears to be a crystal clear pond with a "
+                               "pair of fish swimming side by side", "You are at the pond.", beenTherePond, examTherePond, "water")
+]
+
 #Intro Dialogue
 print("WELCOME TO ISLAND SURVIVAL!")
 userPlayer.name = input(str("Enter your name: "))
@@ -277,46 +262,44 @@ def lookUpLoc(location, directions):
 
 def printLoc(place):
     
-    if(beenThere[place] == False):
-        print(loc[place])
+    if(locales.beenThere == False):
+        print(locales.loc)
         userPlayer.score = userPlayer.score + 5
-        beenThere[place] = True
+        locales.beenThere = True
     else:
         if(userAction == look):
             pass
         else:
-            print(shortLoc[place])
+            print(locales.shortLoc)
 
             
 
 def searchForItem(place):
     global itemsLoc
-    global examThere
     global cmdItem
     userPlayer.moves = userPlayer.moves + 1
-    examThere[place] = True
-    if items[place] != None:
-        print("Look a(n) " + items[place])  
+    locales.examThere[place] = True
+    if locales.items[place] != None:
+        print("Look a(n) " + locales.items[place])  
     else:
         print("Nothing here.")
 
 def takeItem(place):
     global itemsLoc
-    global examThere
     global cmdItem
     userPlayer.moves = userPlayer.moves + 1
-    if examThere[place] == False: #make sure you search first
+    if locales.examThere[place] == False: #make sure you search first
         print("You need to search for an item first!")
     else:
-        if items[place] == None:
+        if locales.items[place] == None:
             print("I guess there is nothing here.")
         else:
             if(cmdItem == " "):
                 print("You need to take a specific item.")
-            elif(cmdItem == items[place]): #Seeing item is there to take
-                userPlayer.inven.append(items[place]) 
-                print("Congrats, You found a " + items[place]+ ".")
-                items[place] = None
+            elif(cmdItem == locales.items[place]): #Seeing item is there to take
+                userPlayer.inven.append(locales.items[place]) 
+                print("Congrats, You found a " + locales.items[place]+ ".")
+                locales.items[place] = None
             else:
                 print("That item is not here")
 
@@ -325,12 +308,12 @@ def dropItem(place):
     if(cmdItem == " "):#make sure you put what you want to drop
         print("You need to drop a specific item.")
     elif cmdItem in userPlayer.inven:
-        if(items[place]  != None):
+        if(locales.items[place]  != None):
             print("There is already an item at this location")
         else:
             userPlayer.inven.remove(cmdItem) 
             print("You dropped a " + cmdItem+ ".")
-            items[place] = cmdItem
+            locales.items[place] = cmdItem
     else:
         print("That item is not in your inventory")
 
