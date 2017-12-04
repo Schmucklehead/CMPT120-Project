@@ -1,14 +1,10 @@
 #Jake Tantorski CMPT 120L 9/21/17
 
+from player import *
 
-global name
-global score
-score = 0
-global currLoc
+
 global shortLoc
 global userAction
-global moves
-moves = 0
 global ending
 
 #0 = beach
@@ -148,17 +144,25 @@ examThere = [
              ,examThereDam
              ,examTherePond
             ]
-
+#The Player Class
+userPlayer = Player(0,0,[],"name", beach)
+#Intro Dialogue
 print("WELCOME TO ISLAND SURVIVAL!")
-name = input(str("Enter your name: "))
+userPlayer.name = input(str("Enter your name: "))
 
-inven = []
+
 
 def intro():
     print()
-    print("Island Survival is a text based game. Controls are: East, West, North, South, Help, Points, Search, Take, Map and Quit. On this adventure" ,name,  "will enter into many locations. Hopefully you can make it out alive.")
+    print("Island Survival is a text based game. Controls are: East, "
+          "West, North, South, Help, Points, Search, Take, Map and Quit."
+          "On this adventure " + userPlayer.name +  " will enter into many locations. "
+          "Hopefully you can make it out alive.")
     print()
-    print("You have awoken on a sandy shore with a seagull staring you right in the face. You rub your eyes and look around. You do not remember anything except your name and a few other basic skills. Unsure of what to do you start looking around.")
+    print("You have awoken on a sandy shore with a seagull staring you right "
+          "in the face. You rub your eyes and look around. You do not remember "
+          "anything except your name:" + userPlayer.name + " and a few other basic skills."
+          "Unsure of what to do you start looking around.")
     print()
 def main():   
     intro()
@@ -168,27 +172,26 @@ def main():
 def game():
     global userAction
     global score
-    global moves
     global ending
     ending = 99
     useRiver = 1
-    currLoc = beach
-    printLoc(currLoc)
+    
+    printLoc(userPlayer.currLoc)
     while True:                     
      if(ending == 2):
          break
-     elif moves == 40:
+     elif userPlayer.moves == 69:
         ending = 1
         break
      elif(ending == 0):
          break
-     elif score == 50 and "map" in inven:
+     elif userPlayer.score == 60 and "map" in userPlayer.inven:
          ending = 3
          break
-     elif( useRiver == 1 and currLoc == river):
+     elif( useRiver == 1 and userPlayer.currLoc == river):
          print("You fall into the river and dont remember how to swim. You have to be quick. What do you do?")
          userAction = getNextDirection()
-         if(userAction == use and cmdItem == "lifevest" and  "lifevest" in inven):
+         if(userAction == use and cmdItem == "lifevest" and  "lifevest" in userPlayer.inven):
              print("That was a smart move to use the lifevest. You now know that you need it in order to cross the river.")
              useRiver = 0
          else:
@@ -202,33 +205,33 @@ def game():
         if userAction == quit:
             break
         elif userAction == look :
-            print(loc[currLoc])
+            print(loc[userPlayer.currLoc])
             
         elif userAction == map :
             drawMap()
 
         elif userAction == search:
-            searchForItem(currLoc)
+            searchForItem(userPlayer.currLoc)
 
         elif userAction == take:
-            takeItem(currLoc)
+            takeItem(userPlayer.currLoc)
             
         elif userAction == drop:
-            dropItem(currLoc)
+            dropItem(userPlayer.currLoc)
             
         elif userAction == use:
-            useItem(currLoc)
+            useItem(userPlayer.currLoc)
 
         elif userAction == help:
             print("Commands are: -North-, -South-, -East- , -West-. -Quit- to end the game, -Look- to look around, -Map- to access map, -Search- to search for items, -Take- to take the items after searching, -Drop-, -Use-, -Points- to show " + name + "'s score.")
             
         elif userAction == points:
-            print("Score: " + str(score) + ".")
+            print("Score: " + str(userPlayer.score) + ".")
         
         else:
-            currLoc = lookUpLoc(currLoc,userAction)
-            printLoc(currLoc)
-            moves = moves + 1
+            userPlayer.currLoc = lookUpLoc(userPlayer.currLoc,userAction)
+            printLoc(userPlayer.currLoc)
+            userPlayer.moves = userPlayer.moves + 1
 
 def endingScene():
     global ending
@@ -273,10 +276,10 @@ def lookUpLoc(location, directions):
     
 
 def printLoc(place):
-    global score
+    
     if(beenThere[place] == False):
         print(loc[place])
-        score = score + 5
+        userPlayer.score = userPlayer.score + 5
         beenThere[place] = True
     else:
         if(userAction == look):
@@ -288,11 +291,9 @@ def printLoc(place):
 
 def searchForItem(place):
     global itemsLoc
-    global inven
     global examThere
-    global moves
     global cmdItem
-    moves = moves + 1
+    userPlayer.moves = userPlayer.moves + 1
     examThere[place] = True
     if items[place] != None:
         print("Look a(n) " + items[place])  
@@ -301,11 +302,9 @@ def searchForItem(place):
 
 def takeItem(place):
     global itemsLoc
-    global inven
     global examThere
-    global moves
     global cmdItem
-    moves = moves + 1
+    userPlayer.moves = userPlayer.moves + 1
     if examThere[place] == False: #make sure you search first
         print("You need to search for an item first!")
     else:
@@ -315,23 +314,21 @@ def takeItem(place):
             if(cmdItem == " "):
                 print("You need to take a specific item.")
             elif(cmdItem == items[place]): #Seeing item is there to take
-                inven.append(items[place]) 
+                userPlayer.inven.append(items[place]) 
                 print("Congrats, You found a " + items[place]+ ".")
                 items[place] = None
             else:
                 print("That item is not here")
 
 def dropItem(place):
-    global inven
-    global moves
-    moves = moves + 1
+    userPlayer.moves = userPlayer.moves + 1
     if(cmdItem == " "):#make sure you put what you want to drop
         print("You need to drop a specific item.")
-    elif cmdItem in inven:
+    elif cmdItem in userPlayer.inven:
         if(items[place]  != None):
             print("There is already an item at this location")
         else:
-            inven.remove(cmdItem) 
+            userPlayer.inven.remove(cmdItem) 
             print("You dropped a " + cmdItem+ ".")
             items[place] = cmdItem
     else:
@@ -339,18 +336,15 @@ def dropItem(place):
 
 def useItem(place):
     global itemsLoc
-    global inven
-    global currLoc
-    global moves
     global cmdItem
     global ending
-    moves = moves +1
+    userPlayer.moves = userPlayer.moves +1
     if(cmdItem == " "): # if they dont say what item
         print("You need to use a specific item." )
     else:
-        if cmdItem in inven: #make sure they have it
+        if cmdItem in userPlayer.inven: #make sure they have it
             
-            if place == cave and "spear" in inven:
+            if place == cave and "spear" in userPlayer.inven:
                 ending = 0
             
             else:
@@ -365,7 +359,7 @@ def useItem(place):
 
 #Map Of Island
 def drawMap():
-  if "map" in inven:
+  if "map" in userPlayer.inven:
         print("Hills------ Rocks--------Cave")
         print("  |           |            | ")
         print("  |           |            | ")
