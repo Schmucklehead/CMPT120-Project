@@ -94,7 +94,7 @@ locales = [  GameLocale( "beach", "A beach appears. Waves crash against the sand
                           "drawings on the wall and a torch lit in the back.", "You are at the cave.", beenThereCave, examThereCave, None)
 #FOREST
 ,GameLocale("forest", "A thick forest appears with many tall luming trees. "
-                            "Animals are abdunant and you smell pine.", "You are at the forest.", beenThereForest, examThereForest, "map")
+                            "Animals are abdunant and you smell pine.", "You are at the forest.", beenThereForest, examThereForest, "drywood")
 #FIELD
 ,GameLocale("field", "Now a lush grassy field is in your sights. The grass is untouched except the small rodents "
                            "that live in it. Flies buzz around your head in the heat.", "You are at the field.", beenThereField, examThereField, None)
@@ -112,9 +112,9 @@ locales = [  GameLocale( "beach", "A beach appears. Waves crash against the sand
                            "around and a beaver creating a dam", "You are at the marsh.", beenThereMarsh, examThereMarsh, "axe")
 #WATERFALL
 ,GameLocale("waterfall", "A beautiful waterfall comes into sight and the water sparys your face.  You stare into the beauty that is water falling "
-                               "from a cliff and listen to it crash onto the rocks below", "You are at the waterfall.", beenThereWaterfall, examThereWaterfall, None)
+                               "from a cliff and listen to it crash onto the rocks below", "You are at the waterfall.", beenThereWaterfall, examThereWaterfall, "canteen")
 #DAM
-,GameLocale("dam", "A group of beavers is visible and they are constructing a dam. The dam is blocking the water from running freely", "You are at the dam.", beenThereDam, examThereDam, "wood")
+,GameLocale("dam", "A group of beavers is visible and they are constructing a dam. The dam is blocking the water from running freely", "You are at the dam.", beenThereDam, examThereDam, "wetwood")
 #POND
 ,GameLocale("pond", "There appears to be a crystal clear pond with a "
                                "pair of fish swimming side by side", "You are at the pond.", beenTherePond, examTherePond, "water")
@@ -156,6 +156,8 @@ def game():
     global userAction
     global score
     global ending
+    global useAxe
+    useAxe = 2
     ending = 99
     useRiver = 1
     
@@ -180,7 +182,9 @@ def game():
          else:
             ending = 2
             break
-         
+     elif(useAxe == 0 and "axe" in userPlayer.inven):
+        userPlayer.inven.remove("axe")
+        print("The axe broke from using it too much.")    
      
      
      else:
@@ -188,7 +192,7 @@ def game():
         if userAction == quit:
             break
         elif userAction == look :
-            print(loc[userPlayer.currLoc])
+            print(locales[userPlayer.currLoc].loc)
             
         elif userAction == map :
             drawMap()
@@ -206,7 +210,8 @@ def game():
             useItem(userPlayer.currLoc)
 
         elif userAction == help:
-            print("Commands are: -North-, -South-, -East- , -West-. -Quit- to end the game, -Look- to look around, -Map- to access map, -Search- to search for items, -Take- to take the items after searching, -Drop-, -Use-, -Points- to show " + name + "'s score.")
+            print("Commands are: -North-, -South-, -East- , -West-. -Quit- to end the game, -Look- to look around, -Map- to access map,"
+                  " -Search- to search for items, -Take- to take the items after searching, -Drop-, -Use-, -Points- to show " + userPlayer.name + "'s score.")
             
         elif userAction == points:
             print("Score: " + str(userPlayer.score) + ".")
@@ -306,9 +311,13 @@ def takeItem(place):
             if(cmdItem == " "):
                 print("You need to take a specific item.")
             elif(cmdItem == locales[place].items): #Seeing item is there to take
-                userPlayer.inven.append(locales[place].items) 
-                print("Congrats, You took a " + locales[place].items + ".")
-                locales[place].items = None
+                if(userPlayer.currLoc == forest or dam and ("axe" in userPlayer.inven)):
+                    print("You to use a specific item here to take the wood")
+                else:
+                    userPlayer.inven.append(locales[place].items) 
+                    print("Congrats, You took a " + locales[place].items + ".")
+                    locales[place].items = None
+        
             else:
                 print("That item is not here")
 
@@ -333,6 +342,8 @@ def useItem(place):
     global itemsLoc
     global cmdItem
     global ending
+    global useAxe
+    
     userPlayer.moves = userPlayer.moves +1
     if(cmdItem == " "): # if they dont say what item
         print("You need to use a specific item." )
@@ -342,6 +353,19 @@ def useItem(place):
             if place == cave and "spear" in userPlayer.inven:
                 ending = 0
             
+            elif(place == forest and "axe" in userPlayer.inven):
+                 print("You got dry wood to make a fire.")
+                 userPlayer.inven.append("drywood")
+                 useAxe = useAxe -1
+                 
+                 
+                 
+            elif(place == dam and "axe" in userPlayer.inven):
+                 print("You got wet wood. That wont help make a fire")
+                 userPlayer.inven.append("wetwood")
+                 useAxe = useAxe -1
+                 
+                                
             else:
                 print("You cant use that item here")
         else:
