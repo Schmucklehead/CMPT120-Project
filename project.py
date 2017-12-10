@@ -53,9 +53,6 @@ world = [  #N           #S          #E         #W
         ,[ waterfall,   None,        None,      dam    ]#pond
         ]
     
-    
-
-
 beenThereRocks = False
 beenThereBeach = False
 beenThereCave = False
@@ -80,7 +77,9 @@ examThereRiver = False
 examThereMarsh = False
 examThereWaterfall = False
 examThereDam = False
-examTherePond = False
+examTherePond = False   
+
+
 
 #The Player Class
 userPlayer = Player(0,0,[],"name", beach)
@@ -144,6 +143,7 @@ def intro():
 
 
 def main():
+    booleans()
     intro()
     game()
     endingScene()
@@ -277,7 +277,7 @@ def endingScene():
 
 
 
-        
+#COMMAND FUNCTIONS       
 def getNextDirection():
         global cmdItem
         choice = input("Command: ").split(" ")
