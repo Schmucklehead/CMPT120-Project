@@ -22,7 +22,7 @@ waterfall = 9
 dam = 10
 pond = 11
 
-directions = [ "north", "south", "east", "west", "quit","look","map","search","take","help","points","drop","use"]
+directions = [ "north", "south", "east", "west", "quit","look","map","search","take","help","points","drop","use","inventory"]
 north = 0
 south = 1
 east = 2
@@ -36,6 +36,7 @@ help = 9
 points = 10
 drop = 11
 use = 12
+inventory =13
 
 world = [  #N           #S          #E         #W
          [ rocks,       village,     forest,    field  ]#beach
@@ -211,7 +212,10 @@ def game():
             
         elif userAction == use:
             useItem(userPlayer.currLoc)
-
+            
+        elif userAction == inventory:
+            print(userPlayer.name + "'s Inventory: " + ",".join(str(items) for items in userPlayer.inven) + ".")
+        
         elif userAction == help:
             print("Commands are: -North-, -South-, -East- , -West-. -Quit- to end the game, -Look- to look around, -Map- to access map,"
                   " -Search- to search for items, -Take- to take the items after searching, -Drop-, -Use-, -Points- to show " + userPlayer.name + "'s score.")
@@ -231,18 +235,43 @@ def endingScene():
     global ending
     if (ending == 0):
         print(userPlayer.name + " wins. You have succesfully made it to a safe location with a weapon, fire wood and water to spend the night")
+        decide = input("Play again? Yes or No: ")
+        if decide.lower() == "yes":
+            main()
+        else:
+            pass
 
     elif(ending  == 1):
         print("You took too long and got caught in the cold of the night. You died. GAME OVER!")
+        decide = input("Play again? Yes or No: ")
+        if decide.lower() == "yes":
+            main()
+        else:
+            pass
 
     elif(ending == 2):
         print("You did not have something to keep you afloat as tried to cross and you drowned. GAME OVER!")
+        decide = input("Play again? Yes or No: ")
+        if decide.lower() == "yes":
+            main()
+        else:
+            pass
 
     elif(ending == 3):
         print("You have been everywhere and you have the map with you. You have seen the island and can survive and navigate!")
+        decide = input("Play again? Yes or No: ")
+        if decide.lower() == "yes":
+            main()
+        else:
+            pass
 
     else:
         print("Thanks for playing!")
+        decide = input("Play again? Yes or No: ")
+        if decide.lower() == "yes":
+            main()
+        else:
+            pass
 
 
 
@@ -314,7 +343,7 @@ def takeItem(place):
             if(cmdItem == " "):
                 print("You need to take a specific item.")
             elif(cmdItem == locales[place].items): #Seeing item is there to take
-                if(userPlayer.currLoc == forest or userPlayer.currLoc == dam):
+                if(userPlayer.currLoc == forest or userPlayer.currLoc == dam or userPlayer.currLoc == pond):
                     print("You need to use a specific item here to take it")
                 else:
                     userPlayer.inven.append(locales[place].items) 
@@ -353,7 +382,7 @@ def useItem(place):
     else:
         if cmdItem in userPlayer.inven: #make sure they have it
             
-            if place == cave and "spear" in userPlayer.inven and "wood" in userPlayer.inven:
+            if place == cave and "spear" in userPlayer.inven and "wood" in userPlayer.inven and "water" in userPlayer.inven:
                 ending = 0
             
             elif(place == forest and "axe" in userPlayer.inven):
@@ -367,6 +396,11 @@ def useItem(place):
                  print("You got wet logs. That wont help make a fire")
                  userPlayer.inven.append("logs")
                  useAxe = useAxe -1
+
+            elif(place == pond and "canteen" in userPlayer.inven):
+                 print("You got water.")
+                 userPlayer.inven.append("water")
+                 
                  
                                 
             else:
