@@ -22,7 +22,7 @@ waterfall = 9
 dam = 10
 pond = 11
 
-directions = [ "north", "south", "east", "west", "quit","look","map","search","take","help","points","drop","use","inventory"]
+directions = [ "north", "south", "east", "west", "quit","look","map","search","take","help","points","drop","use","inventory", "pray"]
 north = 0
 south = 1
 east = 2
@@ -37,6 +37,7 @@ points = 10
 drop = 11
 use = 12
 inventory =13
+pray = 14
 
 world = [  #N           #S          #E         #W
          [ rocks,       village,     forest,    field  ]#beach
@@ -105,7 +106,7 @@ userPlayer.name = input(str("Enter your name: "))
 def intro():
     print()
     print("Island Survival is a text based game. Controls are: East, "
-          "West, North, South, Help, Points, Search, Take, Map, Use and Quit."
+          "West, North, South, Help, Points, Search, Take, Map, Use, Pray and Quit."
           "On this adventure " + userPlayer.name +  " will enter into many locations. "
           "Hopefully you can make it out alive.")
     print()
@@ -131,9 +132,10 @@ def main():
     
 def game():
     global userAction
-    global score
     global ending
     global useAxe
+    global prayers
+    prayers = 1
     useAxe = 2
     ending = 99
     useRiver = 1
@@ -194,10 +196,14 @@ def game():
         
         elif userAction == help:
             print("Commands are: -North-, -South-, -East- , -West-. -Quit- to end the game, -Look- to look around, -Map- to access map,"
-                  " -Search- to search for items, -Take- to take the items after searching, -Drop-, -Use-, -Points- to show " + userPlayer.name + "'s score.")
+                  " -Search- to search for items, -Take- to take the items after searching, -Drop-, -Use-, -Pray-, -Points- to show " + userPlayer.name + "'s score.")
             
         elif userAction == points:
             print("Score: " + str(userPlayer.score) + ".")
+
+        elif userAction == pray:
+            prayer()
+        
         
         else:
             userPlayer.currLoc = lookUpLoc(userPlayer.currLoc,userAction)
@@ -419,6 +425,16 @@ def restartFunc():
     else:
         print("Please Enter -Yes- or -No-")
         restartFunc()
+
+def prayer():
+    global prayers
+    if(prayers == 1):
+        print("The air swirls around you and a ghostly figure appears."
+              "He says to you in a low wispy voice: Cave...Safety. The air becomes dead and he disappears.")
+        prayers = prayers - 1
+    else:
+        print("You already prayed.")
+    
     
 
 
