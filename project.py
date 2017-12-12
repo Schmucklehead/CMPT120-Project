@@ -424,7 +424,7 @@ def restartFunc():
         locales[9].items = "canteen"
         locales[10].items = "logs"
         locales[11].items = "water"
-        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\nResetting Game..."
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nResetting Game..."
               "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")#Making sure people cant see old games that have been played
         main()
     elif restart.lower() == "no":
