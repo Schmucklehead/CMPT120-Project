@@ -1,14 +1,8 @@
 #Jake Tantorski CMPT 120L 12/4/17
-
 from player import *
 from gameLocale import *
-
-
-
 global userAction
 global ending
-
-
 beach = 0
 rocks = 1
 cave = 2
@@ -21,7 +15,6 @@ marsh = 8
 waterfall = 9
 dam = 10
 pond = 11
-
 directions = [ "north", "south", "east", "west", "quit","look","map","search","take","help","points","drop","use","inventory", "pray"]
 north = 0
 south = 1
@@ -38,7 +31,6 @@ drop = 11
 use = 12
 inventory =13
 pray = 14
-
 world = [  #N           #S          #E         #W
          [ rocks,       village,     forest,    field  ]#beach
         ,[ None,        beach,       cave,     hills   ]#rocks
@@ -53,15 +45,10 @@ world = [  #N           #S          #E         #W
         ,[ marsh,       None,        pond,      None   ]#dam
         ,[ waterfall,   None,        None,      dam    ]#pond
         ]
-    
-
-
-
-
 #The Player Class
 userPlayer = Player(0,0,[],"name", beach)
 #BEACH
-locales = [  GameLocale( "beach", "A beach appears. Waves crash against the sandy beach and"
+locales = [  GameLocale( "beach", "A beach appears. Waves crash against the sandy beach and "
                            " palm trees sway in the wind.", "You are at the beach.",  False,  False, "lifevest")
 #ROCKS
 ,GameLocale("rocks", "You stumble upon a rocky surface. The is no life"
@@ -96,14 +83,10 @@ locales = [  GameLocale( "beach", "A beach appears. Waves crash against the sand
 ,GameLocale("pond", "There appears to be a crystal clear pond with a "
                                "pair of fish swimming side by side", "You are at the pond.",  False,  False, "water")
 ]
-
 #Intro Dialogue
 def naming():
     print("WELCOME TO ISLAND SURVIVAL!")
     userPlayer.name = input(str("Enter your name: "))
-
-
-
 def intro():
     print()
     print("Island Survival is a text based game. Controls are: East, "
@@ -116,22 +99,13 @@ def intro():
           "anything except your name:" + userPlayer.name + " and a few other basic skills."
           "Unsure of what to do you start looking around.")
     print()
-
-
-
-
 def main():
     naming()
     intro()
     game()
     endingScene()
     restartFunc()
-#Game Function
-
-
-
-
-    
+#Game Function    
 def game():
     global userAction
     global ending
@@ -141,7 +115,6 @@ def game():
     useAxe = 2
     ending = 99
     useRiver = 1
-    
     printLoc(userPlayer.currLoc)
     while True:                     
      if(ending == 2):
@@ -153,8 +126,7 @@ def game():
          break
      elif userPlayer.score == 60 and "map" in userPlayer.inven:
          ending = 3
-         break
-        
+         break       
   #Using the lifevest at the river      
      elif( useRiver == 1 and userPlayer.currLoc == river):
          print("You fall into the river and dont remember how to swim. You have to be quick. What do you use?")
@@ -164,82 +136,54 @@ def game():
              useRiver = 0
          else:
             ending = 2
-            break
-        
+            break       
      elif(useAxe == 0 and "axe" in userPlayer.inven):
         userPlayer.inven.remove("axe")
         print("The axe broke from using it too much.")    
-     
-     
      else:
         userAction = getNextDirection()
         if userAction == quit:
             break
         elif userAction == look :
-            print(locales[userPlayer.currLoc].loc)
-            
+            print(locales[userPlayer.currLoc].loc)           
         elif userAction == map :
             drawMap()
-
         elif userAction == search:
             searchForItem(userPlayer.currLoc)
-
         elif userAction == take:
             takeItem(userPlayer.currLoc)
-            
         elif userAction == drop:
-            dropItem(userPlayer.currLoc)
-            
+            dropItem(userPlayer.currLoc)           
         elif userAction == use:
-            useItem(userPlayer.currLoc)
-            
+            useItem(userPlayer.currLoc)           
         elif userAction == inventory:
             print(userPlayer.name + "'s Inventory: " + ",".join(str(items) for items in userPlayer.inven) + ".")
-        
         elif userAction == help:
             print("Commands are: -North-, -South-, -East- , -West-. -Quit- to end the game, -Look- to look around, -Map- to access map,"
-                  " -Search- to search for items, -Take- to take the items after searching, -Drop-, -Use-, -Pray- to get a hint, -Points- to show " + userPlayer.name + "'s score.")
-            
+                  " -Search- to search for items, -Take- to take the items after searching, -Drop-, -Use-, -Pray- to get a hint, -Points- to show " + userPlayer.name + "'s score.")           
         elif userAction == points:
             print("Score: " + str(userPlayer.score) + ".")
-
         elif userAction == pray:
             prayer()
-        
-        
         else:
             userPlayer.currLoc = lookUpLoc(userPlayer.currLoc,userAction)
             printLoc(userPlayer.currLoc)
             userPlayer.moves = userPlayer.moves + 1
-
-
-            
-
 def endingScene():
     global ending
     if (ending == 0):
-        print(userPlayer.name + " wins. You have succesfully made it to a safe location with a weapon, fire wood and water to spend the night")
-        
+        print(userPlayer.name + " wins. You have succesfully made it to a safe location with a weapon, fire wood and water to spend the night")       
     elif(ending  == 1):
         print("You took too long and got caught in the cold of the night. You died. GAME OVER!")
         decide = input("Play again? Yes or No: ")
-
     elif(ending == 2):
         print("You did not have something to keep you afloat as tried to cross and you drowned. GAME OVER!")
         decide = input("Play again? Yes or No: ")
-
     elif(ending == 3):
         print("You have been everywhere and you have the map with you. You have seen the island and can survive and navigate!")
         decide = input("Play again? Yes or No: ")
-
     else:
         print("Thanks for playing!")
-
-
-
-
-
-
 #COMMAND FUNCTIONS       
 def getNextDirection():
         global cmdItem
@@ -254,18 +198,14 @@ def getNextDirection():
             return directions.index(cmd)
         except:
             print("Thats not a valid command!")
-            return getNextDirection()
-
-        
+            return getNextDirection()        
 #Movement        
 def lookUpLoc(location, directions):
     if world[location][directions] == None:
        print("There is nothing in that direction.")
        return location
     else:
-        return world[location][directions]
-
-    
+        return world[location][directions]   
 #PRINTLOC
 def printLoc(place):
     
@@ -277,9 +217,7 @@ def printLoc(place):
         if(userAction == look):
             pass
         else:
-            print(locales[place].shortLoc)
-
-            
+            print(locales[place].shortLoc)            
 #SEARCH FUNCTION
 def searchForItem(place):
     global itemsLoc
@@ -289,9 +227,7 @@ def searchForItem(place):
     if locales[place].items != None:
         print("Look a(n) " + locales[place].items)  
     else:
-        print("Nothing here.")
-
-        
+        print("Nothing here.")        
 #TAKE FUNCTION
 def takeItem(place):
     global itemsLoc
@@ -315,7 +251,6 @@ def takeItem(place):
         
             else:
                 print("That item is not here")
-
 #DROP FUNCTION
 def dropItem(place):
     userPlayer.moves = userPlayer.moves + 1
@@ -330,8 +265,6 @@ def dropItem(place):
             locales[place].items = cmdItem
     else:
         print("That item is not in your inventory")
-
-
 #USE FUNCTION
 def useItem(place):
     global itemsLoc
@@ -353,32 +286,19 @@ def useItem(place):
                  userPlayer.inven.append("wood")
                  useAxe = useAxe -1
                  locales[place].items = None
-                 
-                 
-                 
             elif(place == dam and "axe" in userPlayer.inven):
                  print("You got wet logs. That wont help make a fire")
                  userPlayer.inven.append("logs")
                  useAxe = useAxe -1
                  locales[place].items = None
-
             elif(place == pond and "canteen" in userPlayer.inven):
                  print("You got water.")
                  userPlayer.inven.append("water")
-                 locales[place].items = None
-                 
-                 
-                                
+                 locales[place].items = None                               
             else:
                 print("You cant use that item here")
         else:
             print("You do not have that item.")
-    
-                
-        
-        
-        
-
 #Map Of Island
 def drawMap():
   if "map" in userPlayer.inven:
@@ -433,7 +353,6 @@ def restartFunc():
     else:
         print("Please Enter -Yes- or -No-")
         restartFunc()
-
 def prayer():
     global prayers
     if(prayers == 1):
@@ -450,14 +369,8 @@ def prayer():
               "He says to you in a low wispy voice: The field will bring you in the right direction. The air becomes dead and he disappears.")
             prayers = prayers - 1       
     else:
-        print("You already prayed.")
-    
-    
-
-
-                       
+        print("You already prayed.")                       
 main()
-
 print("Copyright: Jake Tantorski jake.tantorski1@marist.edu ")
 
 
