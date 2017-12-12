@@ -196,7 +196,7 @@ def game():
         
         elif userAction == help:
             print("Commands are: -North-, -South-, -East- , -West-. -Quit- to end the game, -Look- to look around, -Map- to access map,"
-                  " -Search- to search for items, -Take- to take the items after searching, -Drop-, -Use-, -Pray-, -Points- to show " + userPlayer.name + "'s score.")
+                  " -Search- to search for items, -Take- to take the items after searching, -Drop-, -Use-, -Pray- to get a hint, -Points- to show " + userPlayer.name + "'s score.")
             
         elif userAction == points:
             print("Score: " + str(userPlayer.score) + ".")
@@ -350,6 +350,7 @@ def useItem(place):
                  print("You got dry wood to make a fire.")
                  userPlayer.inven.append("wood")
                  useAxe = useAxe -1
+                 locales[place].items = None
                  
                  
                  
@@ -357,10 +358,12 @@ def useItem(place):
                  print("You got wet logs. That wont help make a fire")
                  userPlayer.inven.append("logs")
                  useAxe = useAxe -1
+                 locales[place].items = None
 
             elif(place == pond and "canteen" in userPlayer.inven):
                  print("You got water.")
                  userPlayer.inven.append("water")
+                 locales[place].items = None
                  
                  
                                 
@@ -401,7 +404,7 @@ def restartFunc():
     restart = input("Do you want to play again? ")
     if restart.lower() == "yes":
         #Reset player values
-        userPlayer.inv = []
+        userPlayer.inven = []
         userPlayer.score = 0
         userPlayer.moves = 0
         userPlayer.currLoc = beach
@@ -429,9 +432,18 @@ def restartFunc():
 def prayer():
     global prayers
     if(prayers == 1):
-        print("The air swirls around you and a ghostly figure appears."
+        if( "map" in userPlayer.inven):
+            print("The air swirls around you and a ghostly figure appears."
               "He says to you in a low wispy voice: Cave...Safety. The air becomes dead and he disappears.")
-        prayers = prayers - 1
+            prayers = prayers - 1
+        elif( "lifevest" not in userPlayer.inven):
+            print("The air swirls around you and a ghostly figure appears."
+              "He says to you in a low wispy voice: Do not drown in the river. The air becomes dead and he disappears.")
+            prayers = prayers - 1
+        else:
+            print("The air swirls around you and a ghostly figure appears."
+              "He says to you in a low wispy voice: The field will bring you in the right direction. The air becomes dead and he disappears.")
+            prayers = prayers - 1       
     else:
         print("You already prayed.")
     
