@@ -53,31 +53,7 @@ world = [  #N           #S          #E         #W
         ,[ waterfall,   None,        None,      dam    ]#pond
         ]
     
-beenThereRocks = False
-beenThereBeach = False
-beenThereCave = False
-beenThereForest = False
-beenThereField = False
-beenThereVillage = False
-beenThereHills = False
-beenThereRiver = False
-beenThereMarsh = False
-beenThereWaterfall = False
-beenThereDam = False
-beenTherePond = False
 
-examThereRocks = False
-examThereBeach = False
-examThereCave = False
-examThereForest = False
-examThereField = False
-examThereVillage = False
-examThereHills = False
-examThereRiver = False
-examThereMarsh = False
-examThereWaterfall = False
-examThereDam = False
-examTherePond = False   
 
 
 
@@ -85,39 +61,39 @@ examTherePond = False
 userPlayer = Player(0,0,[],"name", beach)
 #BEACH
 locales = [  GameLocale( "beach", "A beach appears. Waves crash against the sandy beach and"
-                           " palm trees sway in the wind.", "You are at the beach.", beenThereBeach, examThereBeach, "lifevest")
+                           " palm trees sway in the wind.", "You are at the beach.",  False,  False, "lifevest")
 #ROCKS
 ,GameLocale("rocks", "You stumble upon a rocky surface. The is no life"
-                           " to be seen and water is scarce.", "You are at the rocks.",beenThereRocks, examThereRocks, None)
+                           " to be seen and water is scarce.", "You are at the rocks.", False,  False, None)
 #CAVE                          
 ,GameLocale("cave", "Between some bushes a cave is visible. You walk inside and see many "
-                          "drawings on the wall and a torch lit in the back.", "You are at the cave.", beenThereCave, examThereCave, None)
+                          "drawings on the wall and a torch lit in the back.", "You are at the cave.",  False,  False, None)
 #FOREST
 ,GameLocale("forest", "A thick forest appears with many tall luming trees. "
-                            "Animals are abdunant and you smell pine.", "You are at the forest.", beenThereForest, examThereForest, "wood")
+                            "Animals are abdunant and you smell pine.", "You are at the forest.",  False,  False, "wood")
 #FIELD
 ,GameLocale("field", "Now a lush grassy field is in your sights. The grass is untouched except the small rodents "
-                           "that live in it. Flies buzz around your head in the heat.", "You are at the field.", beenThereField, examThereField, "map")
+                           "that live in it. Flies buzz around your head in the heat.", "You are at the field.",  False,  False, "map")
 #VILLAGE
 ,GameLocale("village", "You can make out what seems to be an old village."
-                             "A fire is almost out and spears are lying around.", "You are at the village.", beenThereVillage, examThereVillage, "spear")
+                             "A fire is almost out and spears are lying around.", "You are at the village.",  False,  False, "spear")
 #HILLS
 ,GameLocale("hills", "As the sun glares in your eyes you see that the hills in front of you are rolling everywhere."
-                           "Grass is covering the hills and an eagle flys above.", "You are at the hills.", beenThereHills, examThereHills, None)
+                           "Grass is covering the hills and an eagle flys above.", "You are at the hills.",  False,  False, None)
 #RIVER
 ,GameLocale("river", "Water is rushing past you and you gaze upon a giant river."
-                           "Swimming through seems to be your only way of crossing", "You are at the river.", beenThereRiver, examThereRiver, None)
+                           "Swimming through seems to be your only way of crossing", "You are at the river.",  False,  False, None)
 #MARSH
 ,GameLocale("marsh", "You stumble upon a marsh and see ducks flying "
-                           "around and a beaver creating a dam", "You are at the marsh.", beenThereMarsh, examThereMarsh, "axe")
+                           "around and a beaver creating a dam", "You are at the marsh.",  False,  False, "axe")
 #WATERFALL
 ,GameLocale("waterfall", "A beautiful waterfall comes into sight and the water sparys your face.  You stare into the beauty that is water falling "
-                               "from a cliff and listen to it crash onto the rocks below", "You are at the waterfall.", beenThereWaterfall, examThereWaterfall, "canteen")
+                               "from a cliff and listen to it crash onto the rocks below", "You are at the waterfall.",  False,  False, "canteen")
 #DAM
-,GameLocale("dam", "A group of beavers is visible and they are constructing a dam. The dam is blocking the water from running freely", "You are at the dam.", beenThereDam, examThereDam, "logs")
+,GameLocale("dam", "A group of beavers is visible and they are constructing a dam. The dam is blocking the water from running freely", "You are at the dam.",  False,  False, "logs")
 #POND
 ,GameLocale("pond", "There appears to be a crystal clear pond with a "
-                               "pair of fish swimming side by side", "You are at the pond.", beenTherePond, examTherePond, "water")
+                               "pair of fish swimming side by side", "You are at the pond.",  False,  False, "water")
 ]
 
 #Intro Dialogue
@@ -143,10 +119,10 @@ def intro():
 
 
 def main():
-    booleans()
     intro()
     game()
     endingScene()
+    restartFunc()
 #Game Function
 
 
@@ -235,43 +211,22 @@ def endingScene():
     global ending
     if (ending == 0):
         print(userPlayer.name + " wins. You have succesfully made it to a safe location with a weapon, fire wood and water to spend the night")
-        decide = input("Play again? Yes or No: ")
-        if decide.lower() == "yes":
-            main()
-        else:
-            pass
-
+        
     elif(ending  == 1):
         print("You took too long and got caught in the cold of the night. You died. GAME OVER!")
         decide = input("Play again? Yes or No: ")
-        if decide.lower() == "yes":
-            main()
-        else:
-            pass
 
     elif(ending == 2):
         print("You did not have something to keep you afloat as tried to cross and you drowned. GAME OVER!")
         decide = input("Play again? Yes or No: ")
-        if decide.lower() == "yes":
-            main()
-        else:
-            pass
 
     elif(ending == 3):
         print("You have been everywhere and you have the map with you. You have seen the island and can survive and navigate!")
         decide = input("Play again? Yes or No: ")
-        if decide.lower() == "yes":
-            main()
-        else:
-            pass
 
     else:
         print("Thanks for playing!")
-        decide = input("Play again? Yes or No: ")
-        if decide.lower() == "yes":
-            main()
-        else:
-            pass
+
 
 
 
@@ -435,6 +390,37 @@ def drawMap():
         print("            Dam----------Pond")
   else:
        print("You do not have a map with you.")
+
+def restartFunc():
+    restart = input("Do you want to play again? ")
+    if restart.lower() == "yes":
+        #Reset player values
+        userPlayer.inv = []
+        userPlayer.score = 0
+        userPlayer.moves = 0
+        userPlayer.currLoc = beach
+        for places in locales:
+             places.beenThere = False
+             places.examThere = False
+             places.items = None
+
+        locales[0].items = "lifevest"
+        locales[3].items = "wood"
+        locales[4].items = "map"
+        locales[5].items = "spear"
+        locales[8].items = "axe"
+        locales[9].items = "canteen"
+        locales[10].items = "logs"
+        locales[11].items = "water"
+        main()
+    elif restart.lower() == "no":
+        print("Thanks for playing!")
+        quit
+    else:
+        print("Please Enter -Yes- or -No-")
+        restartFunc()
+    
+
 
                        
 main()
