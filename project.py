@@ -98,8 +98,9 @@ locales = [  GameLocale( "beach", "A beach appears. Waves crash against the sand
 ]
 
 #Intro Dialogue
-print("WELCOME TO ISLAND SURVIVAL!")
-userPlayer.name = input(str("Enter your name: "))
+def naming():
+    print("WELCOME TO ISLAND SURVIVAL!")
+    userPlayer.name = input(str("Enter your name: "))
 
 
 
@@ -120,6 +121,7 @@ def intro():
 
 
 def main():
+    naming()
     intro()
     game()
     endingScene()
@@ -408,6 +410,7 @@ def restartFunc():
         userPlayer.score = 0
         userPlayer.moves = 0
         userPlayer.currLoc = beach
+        userPlayer.name = ""
         for places in locales:
              places.beenThere = False
              places.examThere = False
@@ -421,6 +424,8 @@ def restartFunc():
         locales[9].items = "canteen"
         locales[10].items = "logs"
         locales[11].items = "water"
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\nResetting Game..."
+              "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")#Making sure people cant see old games that have been played
         main()
     elif restart.lower() == "no":
         print("Thanks for playing!")
